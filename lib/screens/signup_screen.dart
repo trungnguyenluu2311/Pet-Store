@@ -1,22 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/login_screen.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter_project/controllers/auth_controller.dart';
+import 'package:flutter_project/controllers/utilities_controller.dart';
+import 'package:get/get.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+class SignupScreen extends GetWidget<UtilitiesController> {
 
-  @override
-  _SignupScreenState createState() => _SignupScreenState();
-}
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController _emailInputCtrl = TextEditingController();
+  final TextEditingController _passwordInputCtrl = TextEditingController();
+  final TextEditingController _confirmpasswordInputCtrl = TextEditingController();
+  final TextEditingController _nameInputCtrl = TextEditingController();
+  final TextEditingController _phoneInputCtrl = TextEditingController();
 
-class _SignupScreenState extends State<SignupScreen> {
+  final AuthController _authCtrl = Get.find();
+
+  handleFormSignUp() async {
+    if(_passwordInputCtrl.text == ''){
+      Get.snackbar("Lỗi", "Mật khẩu để trống");
+    }
+    else if(_passwordInputCtrl.text == _confirmpasswordInputCtrl.text){
+      await _authCtrl.register(_nameInputCtrl.text,_emailInputCtrl.text,_phoneInputCtrl.text,_passwordInputCtrl.text,"");
+    }
+    else{
+      Get.snackbar("Lỗi", "Mật khẩu không trùng nhau");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+    return GetBuilder<UtilitiesController>(
+      builder: (controller){
+        return Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Color(0xFF085B6E)),
+            elevation: 0,
+          ),
+          body: SizedBox(
+            width: Get.width,
+            height: Get.height,
             child: Stack(
               alignment: AlignmentDirectional.bottomCenter,
               children: [
@@ -32,17 +56,19 @@ class _SignupScreenState extends State<SignupScreen> {
                 Column(children: [
                   const Expanded(child: SizedBox(), flex: 1),
                   Expanded(
-                    flex: 2,
+                    flex: 3,//
                     child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: const BoxDecoration(
-                            color: Color(0xFFF6F5F5),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30))),
+                      width: Get.width,
+                      decoration: const BoxDecoration(
+                          color: Color(0xFFF6F5F5),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30))),
+                      child: SingleChildScrollView(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 20),
                             const Text(
                               'Đăng ký',
                               style: TextStyle(
@@ -51,12 +77,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                   fontSize: 28,
                                   fontWeight: FontWeight.w500),
                             ),
-                            const SizedBox(height: 36),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 20),
+                            const SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 00),
                               child: TextField(
-                                decoration: InputDecoration(
+                                controller: _nameInputCtrl,
+                                decoration: const InputDecoration(
                                   contentPadding:
                                   EdgeInsets.fromLTRB(26, 12, 0, 12),
                                   labelText: 'Họ và tên',
@@ -90,11 +116,11 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                             ),
                             const SizedBox(height: 12),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 20),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 00),
                               child: TextField(
-                                decoration: InputDecoration(
+                                controller: _phoneInputCtrl,
+                                decoration: const InputDecoration(
                                   contentPadding:
                                   EdgeInsets.fromLTRB(26, 12, 0, 12),
                                   labelText: 'Số điện thoại',
@@ -128,13 +154,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                             ),
                             const SizedBox(height: 12),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 20),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 00),
                               child: TextField(
-                                decoration: InputDecoration(
+                                controller: _emailInputCtrl,
+                                decoration: const InputDecoration(
                                   contentPadding:
-                                      EdgeInsets.fromLTRB(26, 12, 0, 12),
+                                  EdgeInsets.fromLTRB(26, 12, 0, 12),
                                   labelText: 'Email',
                                   labelStyle: TextStyle(
                                     color: Color(0xFF9586A8),
@@ -146,82 +172,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                   fillColor: Colors.white,
                                   prefixIcon: Icon(
                                     Icons.email_outlined,
-                                    size: 24,
-                                    color: Color(0xFF9378FF),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFFD9D0E3)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
-                                      borderSide: BorderSide(
-                                        // color: Color(0xFFD9D0E3)
-                                        color: Color(0xFF6C0EE4),
-                                      )),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 20),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.fromLTRB(26, 12, 0, 12),
-                                  labelText: 'Mật khẩu',
-                                  labelStyle: TextStyle(
-                                    color: Color(0xFF9586A8),
-                                    fontSize: 16,
-                                    fontFamily: 'RedHatDisplay',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  prefixIcon: Icon(
-                                    Icons.password_outlined,
-                                    size: 24,
-                                    color: Color(0xFF9378FF),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFFD9D0E3)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
-                                      borderSide: BorderSide(
-                                        // color: Color(0xFFD9D0E3)
-                                        color: Color(0xFF6C0EE4),
-                                      )),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 20),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                  EdgeInsets.fromLTRB(26, 12, 0, 12),
-                                  labelText: 'Xác nhận mật khẩu',
-                                  labelStyle: TextStyle(
-                                    color: Color(0xFF9586A8),
-                                    fontSize: 16,
-                                    fontFamily: 'RedHatDisplay',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  prefixIcon: Icon(
-                                    Icons.password_outlined,
                                     size: 24,
                                     color: Color(0xFF9378FF),
                                   ),
@@ -241,17 +191,93 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 36),
+                            const SizedBox(height: 12),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              child: TextField(
+                                controller: _passwordInputCtrl,
+                                decoration: const InputDecoration(
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(26, 12, 0, 12),
+                                  labelText: 'Mật khẩu',
+                                  labelStyle: TextStyle(
+                                    color: Color(0xFF9586A8),
+                                    fontSize: 16,
+                                    fontFamily: 'RedHatDisplay',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    size: 24,
+                                    color: Color(0xFF9378FF),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Color(0xFFD9D0E3)),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                        // color: Color(0xFFD9D0E3)
+                                        color: Color(0xFF6C0EE4),
+                                      )),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              child: TextField(
+                                controller: _confirmpasswordInputCtrl,
+                                decoration: const InputDecoration(
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(26, 12, 0, 12),
+                                  labelText: 'Xác nhận mật khẩu',
+                                  labelStyle: TextStyle(
+                                    color: Color(0xFF9586A8),
+                                    fontSize: 16,
+                                    fontFamily: 'RedHatDisplay',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    size: 24,
+                                    color: Color(0xFF9378FF),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Color(0xFFD9D0E3)),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                        // color: Color(0xFFD9D0E3)
+                                        color: Color(0xFF6C0EE4),
+                                      )),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
                             Container(
-                                width: MediaQuery.of(context).size.width,
+                                width: Get.width,
                                 padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () => handleFormSignUp(),
                                   style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(8)),
+                                          BorderRadius.circular(8)),
                                       padding: const EdgeInsets.fromLTRB(
                                           0, 22, 0, 22),
                                       primary: const Color(0xFF9378FF)),
@@ -264,11 +290,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             const SizedBox(height: 12),
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginScreen()));
+                                Get.back();
                               },
                               child: RichText(
                                 text: const TextSpan(
@@ -290,15 +312,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                               ),
                             ),
+                            // const SizedBox(height: 100),
                           ],
-                        )),
+                        ),
+                      ),),
                   )
                 ]),
               ],
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }
