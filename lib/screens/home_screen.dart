@@ -7,146 +7,224 @@ import 'package:intl/intl.dart';
 import 'package:flutter_project/controllers/product_controller.dart';
 import 'package:flutter_project/models/product_model.dart';
 
-// class HomeScreen extends StatefulWidget {
-//   const HomeScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   _HomeScreenState createState() => _HomeScreenState();
-// }
-
 class HomeScreen extends GetWidget<ProductController>  {
   final formatter = NumberFormat("#,###");
+  Stream<QuerySnapshot> streamQuery = Get.find<ProductController>().fetchProducts();
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: GetBuilder<ProductController>(
-          builder: (_) =>
-              StreamBuilder<QuerySnapshot>(
-                stream: Get.find<ProductController>().fetchProducts(),
-                builder: (context, stream) {
-                  if (stream.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if (stream.hasError) {
-                    return Center(child: Text(stream.error.toString()));
-                  }
-                  QuerySnapshot querySnapshot = stream.data!;
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                      child: Column(children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Sản phẩm',
-                              style: TextStyle(
-                                  color: Color(0xFF2D0C57),
-                                  fontSize: 34,
-                                  fontFamily: 'RedHatDisplay',
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            const SizedBox(height: 36),
-                            const TextField(
-                              style: TextStyle(color: Colors.black, fontSize: 16),
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(vertical: 12),
-                                labelStyle: TextStyle(
-                                    color: Color(0xFF9586A8),
-                                    fontSize: 16,
-                                    fontFamily: 'RedHatDisplay',
-                                    fontWeight: FontWeight.w400),
-                                labelText: 'Tìm kiếm',
-                                filled: true,
-                                fillColor: Colors.white,
-                                prefixIcon: Icon(
-                                  Icons.search_outlined,
-                                  size: 24,
-                                  color: Color(0xFF9378FF),
+        builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              // centerTitle: true,
+              title: const Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Text(
+                  'Sản phẩm',
+                  style: TextStyle(
+                      color: Color(0xFF2D0C57),
+                      fontSize: 34,
+                      fontFamily: 'RedHatDisplay',
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+              bottom: PreferredSize(
+                preferredSize: const Size(35, 53),
+                child: Padding(
+                  padding: const  EdgeInsets.fromLTRB(20, 0, 20, 5),
+                  child: TextField(
+                    style: const TextStyle(color: Colors.black, fontSize: 16),
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 12),
+                      labelStyle: TextStyle(
+                          color: Color(0xFF9586A8),
+                          fontSize: 16,
+                          fontFamily: 'RedHatDisplay',
+                          fontWeight: FontWeight.w400),
+                      labelText: 'Tìm kiếm',
+                      filled: true,
+                      fillColor: Colors.white,
+                      prefixIcon: Icon(
+                        Icons.search_outlined,
+                        size: 24,
+                        color: Color(0xFF9378FF),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFD9D0E3)),
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderSide: BorderSide(color: Color(0xFF6C0EE4))),
+                    ),
+                    onChanged:(value){
+                      streamQuery = Get.find<ProductController>().searchProducts(value.toLowerCase());
+                      controller.updateScreen();
+                    },
+                  ),
+                ),
+              ),
+              backgroundColor: Colors.white,
+            ),
+            body: StreamBuilder<QuerySnapshot>(
+              stream: streamQuery,
+              builder: (context, stream) {
+                if (stream.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (stream.hasError) {
+                  return Center(child: Text(stream.error.toString()));
+                }
+                QuerySnapshot querySnapshot = stream.data!;
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                    child: Column(children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // const SizedBox(height: 12),
+                          // const SizedBox(height: 36),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(children: [
+                              Container(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                decoration: const BoxDecoration(
+                                    color: Color(0xFFE2CBFF),
+                                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.find<AuthController>().signOutUser();
+                                  },
+                                  child: RichText(
+                                    text: const TextSpan(
+                                        text: 'Thức ăn',
+                                        style: TextStyle(
+                                            color: Color(0xFF6C0EE4),
+                                            fontSize: 14,
+                                            fontFamily: 'RedHatDisplay',
+                                            fontWeight: FontWeight.w500),
+                                        children: [TextSpan(text: ' (4)')]),
+                                  ),
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xFFD9D0E3)),
-                                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                                    borderSide: BorderSide(color: Color(0xFF6C0EE4))),
                               ),
-                            ),
-                            const SizedBox(height: 36),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(children: [
-                                Container(
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFE2CBFF),
-                                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.find<AuthController>().signOutUser();
-                                    },
-                                    child: RichText(
-                                      text: const TextSpan(
-                                          text: 'Thức ăn',
-                                          style: TextStyle(
-                                              color: Color(0xFF6C0EE4),
-                                              fontSize: 14,
-                                              fontFamily: 'RedHatDisplay',
-                                              fontWeight: FontWeight.w500),
-                                          children: [TextSpan(text: ' (4)')]),
-                                    ),
+                              const SizedBox(width: 6),
+                              Container(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color(0xFFD9D0E3),
                                   ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 ),
-                                const SizedBox(width: 12),
-                                Container(
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: const Color(0xFFD9D0E3),
-                                    ),
-                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                                  ),
-                                  child: RichText(
-                                    text: const TextSpan(
-                                        text: 'Thuốc',
-                                        style: TextStyle(
-                                            color: Color(0xFF9586A8),
-                                            fontSize: 14,
-                                            fontFamily: 'RedHatDisplay',
-                                            fontWeight: FontWeight.w500),
-                                        children: [TextSpan(text: ' (5)')]),
-                                  ),
+                                child: RichText(
+                                  text: const TextSpan(
+                                      text: 'Thuốc',
+                                      style: TextStyle(
+                                          color: Color(0xFF9586A8),
+                                          fontSize: 14,
+                                          fontFamily: 'RedHatDisplay',
+                                          fontWeight: FontWeight.w500),
+                                      children: [TextSpan(text: ' (5)')]),
                                 ),
-                                const SizedBox(width: 12),
-                                Container(
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: const Color(0xFFD9D0E3),
-                                    ),
-                                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                              ),
+                              const SizedBox(width: 12),
+                              Container(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color(0xFFD9D0E3),
                                   ),
-                                  child: RichText(
-                                    text: const TextSpan(
-                                        text: 'Đồ chơi',
-                                        style: TextStyle(
-                                            color: Color(0xFF9586A8),
-                                            fontSize: 14,
-                                            fontFamily: 'RedHatDisplay',
-                                            fontWeight: FontWeight.w500),
-                                        children: [TextSpan(text: ' (6)')]),
-                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
                                 ),
-                              ]),
-                            ),
-                            const SizedBox(height: 36),
-                            ListView.builder(
+                                child: RichText(
+                                  text: const TextSpan(
+                                      text: 'Đồ chơi',
+                                      style: TextStyle(
+                                          color: Color(0xFF9586A8),
+                                          fontSize: 14,
+                                          fontFamily: 'RedHatDisplay',
+                                          fontWeight: FontWeight.w500),
+                                      children: [TextSpan(text: ' (6)')]),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Container(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color(0xFFD9D0E3),
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                ),
+                                child: RichText(
+                                  text: const TextSpan(
+                                      text: 'Đồ chơi',
+                                      style: TextStyle(
+                                          color: Color(0xFF9586A8),
+                                          fontSize: 14,
+                                          fontFamily: 'RedHatDisplay',
+                                          fontWeight: FontWeight.w500),
+                                      children: [TextSpan(text: ' (6)')]),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Container(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color(0xFFD9D0E3),
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                ),
+                                child: RichText(
+                                  text: const TextSpan(
+                                      text: 'Đồ chơi',
+                                      style: TextStyle(
+                                          color: Color(0xFF9586A8),
+                                          fontSize: 14,
+                                          fontFamily: 'RedHatDisplay',
+                                          fontWeight: FontWeight.w500),
+                                      children: [TextSpan(text: ' (6)')]),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Container(
+                                padding:
+                                const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color(0xFFD9D0E3),
+                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                                ),
+                                child: RichText(
+                                  text: const TextSpan(
+                                      text: 'Đồ chơi',
+                                      style: TextStyle(
+                                          color: Color(0xFF9586A8),
+                                          fontSize: 14,
+                                          fontFamily: 'RedHatDisplay',
+                                          fontWeight: FontWeight.w500),
+                                      children: [TextSpan(text: ' (6)')]),
+                                ),
+                              ),
+                            ]),
+                          ),
+                          const SizedBox(height: 12),
+                          ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
@@ -158,14 +236,16 @@ class HomeScreen extends GetWidget<ProductController>  {
                                     queryDocSnapshot: item);
                                 return products(product);
                               }
-                            ),
-                          ],
-                        ),
-                      ]),
-                    ),
-                  );
-                },
-              )
+                          ),
+                        ],
+                      ),
+                    ]),
+                  ),
+                );
+              },
+            ),
+          );
+        }
       ),
     );
   }

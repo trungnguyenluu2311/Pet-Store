@@ -17,6 +17,10 @@ class ProductController extends GetxController {
     fetchProducts();
   }
 
+  void updateScreen(){
+    update();
+  }
+
   Stream<QuerySnapshot> fetchProducts() {
     Stream<QuerySnapshot> qSnapStream =
     _productService.fetchProducts();
