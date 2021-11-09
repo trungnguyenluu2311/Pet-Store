@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/screens/user_info_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_project/models/user_model.dart';
 import 'package:flutter_project/models/product_model.dart';
@@ -8,11 +9,12 @@ import 'package:flutter_project/models/product_model.dart';
 // import 'package:flutter_project/screens/payment_screen.dart';
 // import 'package:flutter_project/screens/search_screen.dart';
 // import 'package:flutter_project/screens/user_info_screen.dart';
-// import 'package:flutter_project/screens/cart_screen.dart';
 import 'package:flutter_project/screens/home_screen.dart';
 import 'package:flutter_project/controllers/utilities_controller.dart';
 import 'package:flutter_project/controllers/auth_controller.dart';
 import 'package:get/get.dart';
+import 'cart_screen.dart';
+
 
 class MainScreen extends GetWidget<UtilitiesController> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,15 +51,16 @@ class MainScreen extends GetWidget<UtilitiesController> {
                 index: controller.tabIndex,
                 children:[
                   HomeScreen(),
-                  HomeScreen(),
-                  HomeScreen(),
-                  // UserInfo(),
-                  // CartScreen(),
+                  UserInfo(),
+                  CartScreen()
+                  /*UserInfo(),
+                  CartScreen(),*/
                 ],
               ),
             ),
             bottomNavigationBar: Container(
               decoration: const BoxDecoration(
+                color: Color(0xFFF8F8F8),
                   border: Border(top: BorderSide(color: Color(0xFFD9D0E3)))
               ),
               child: BottomNavigationBar(

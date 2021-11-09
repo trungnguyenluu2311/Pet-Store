@@ -50,6 +50,16 @@ class Product{
     quantum = documentSnapshot["quantum"];
   }
 
+  Product.fromQueryDocumentSnapshotForcart({required QueryDocumentSnapshot queryDocSnapshot}) {
+    var data = queryDocSnapshot.data();
+    id = queryDocSnapshot.id;
+    name = (data as dynamic)["name"];
+    price = (data as dynamic)["price"];
+    discount = (data as dynamic)["discount"];
+    pathImage = (data as dynamic)["path"];
+    quantum = (data as dynamic)["quantum"];
+  }
+
   Product.fromQueryDocumentSnapshot({required QueryDocumentSnapshot queryDocSnapshot}) {
     var data = queryDocSnapshot.data();
     id = queryDocSnapshot.id;
