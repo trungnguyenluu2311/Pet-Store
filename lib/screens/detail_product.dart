@@ -9,7 +9,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DetailProduct extends StatelessWidget {
   final formatter = NumberFormat("#,###");
   final String productId;
+
   DetailProduct(this.productId);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +31,9 @@ class DetailProduct extends StatelessWidget {
                 if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
                 }
-                if(snapshot.data!.exists){
-                  final Product product = Product.fromDocumentSnapshot(documentSnapshot: snapshot.data!);
+                if (snapshot.data!.exists) {
+                  final Product product = Product.fromDocumentSnapshot(
+                      documentSnapshot: snapshot.data!);
                   return SingleChildScrollView(
                     child: SizedBox(
                       width: Get.width,
@@ -57,13 +60,14 @@ class DetailProduct extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 36, horizontal: 24),
                                   decoration: const BoxDecoration(
-                                      color: Color(0xFFF6F5F5),
+                                      color: Color(0xFFFAF9FE),
                                       borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(30),
                                           topRight: Radius.circular(30))),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         product.name,
@@ -76,20 +80,22 @@ class DetailProduct extends StatelessWidget {
                                       const SizedBox(height: 12),
                                       RichText(
                                           text: TextSpan(
-                                              text: formatter.format(double.parse(product.price)),
+                                              text: formatter.format(
+                                                  double.parse(product.price)),
                                               style: const TextStyle(
                                                   color: Color(0xFF2D0C57),
                                                   fontSize: 32,
                                                   fontFamily: 'RedHatDisplay',
                                                   fontWeight: FontWeight.w700),
                                               children: const [
-                                                TextSpan(
-                                                    text: ' đ / cái',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF9586A8),
-                                                        fontSize: 24,
-                                                        fontWeight: FontWeight.w400))
-                                              ])),
+                                            TextSpan(
+                                                text: ' đ / cái',
+                                                style: TextStyle(
+                                                    color: Color(0xFF9586A8),
+                                                    fontSize: 24,
+                                                    fontWeight:
+                                                        FontWeight.w400))
+                                          ])),
                                       const SizedBox(height: 30),
                                       Expanded(
                                         child: PageView(
@@ -97,15 +103,17 @@ class DetailProduct extends StatelessWidget {
                                           children: [
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children:[
+                                                  CrossAxisAlignment.start,
+                                              children: [
                                                 const Text(
                                                   'Thông tin sản phẩm',
                                                   style: TextStyle(
                                                       color: Color(0xFF2D0C57),
                                                       fontSize: 22,
-                                                      fontFamily: 'RedHatDisplay',
-                                                      fontWeight: FontWeight.w700),
+                                                      fontFamily:
+                                                          'RedHatDisplay',
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
                                                 SizedBox(height: 24),
                                                 Expanded(
@@ -113,10 +121,13 @@ class DetailProduct extends StatelessWidget {
                                                     child: Text(
                                                       product.howtouse!,
                                                       style: const TextStyle(
-                                                          color: Color(0xFF9586A8),
+                                                          color:
+                                                              Color(0xFF9586A8),
                                                           fontSize: 18,
-                                                          fontFamily: 'RedHatDisplay',
-                                                          fontWeight: FontWeight.w500),
+                                                          fontFamily:
+                                                              'RedHatDisplay',
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ),
                                                 ),
@@ -124,15 +135,17 @@ class DetailProduct extends StatelessWidget {
                                             ),
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 const Text(
                                                   'Thành phần sản phẩm',
                                                   style: TextStyle(
                                                       color: Color(0xFF2D0C57),
                                                       fontSize: 22,
-                                                      fontFamily: 'RedHatDisplay',
-                                                      fontWeight: FontWeight.w700),
+                                                      fontFamily:
+                                                          'RedHatDisplay',
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
                                                 SizedBox(height: 24),
                                                 Expanded(
@@ -140,10 +153,13 @@ class DetailProduct extends StatelessWidget {
                                                     child: Text(
                                                       product.components!,
                                                       style: const TextStyle(
-                                                          color: Color(0xFF9586A8),
-                                                          fontFamily: 'RedHatDisplay',
+                                                          color:
+                                                              Color(0xFF9586A8),
+                                                          fontFamily:
+                                                              'RedHatDisplay',
                                                           fontSize: 18,
-                                                          fontWeight: FontWeight.w500),
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ),
                                                 )
@@ -153,81 +169,104 @@ class DetailProduct extends StatelessWidget {
                                               children: [
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                      CrossAxisAlignment.end,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: const [
                                                     Text(
                                                       '10 nhận xét',
                                                       style: TextStyle(
-                                                          color: Color(0xFF2D0C57),
-                                                          fontFamily: 'RedHatDisplay',
+                                                          color:
+                                                              Color(0xFF2D0C57),
+                                                          fontFamily:
+                                                              'RedHatDisplay',
                                                           fontSize: 22,
-                                                          fontWeight: FontWeight.w700),
+                                                          fontWeight:
+                                                              FontWeight.w700),
                                                     ),
                                                     Text(
                                                       'Đánh giá trung bình: 4.5',
                                                       style: TextStyle(
-                                                          color: Color(0xFF2D0C57),
-                                                          fontFamily: 'RedHatDisplay',
+                                                          color:
+                                                              Color(0xFF2D0C57),
+                                                          fontFamily:
+                                                              'RedHatDisplay',
                                                           fontSize: 18,
-                                                          fontWeight: FontWeight.w500),
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     )
                                                   ],
                                                 ),
                                                 const SizedBox(height: 12),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     Column(
                                                       crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: const [
                                                         Text(
                                                           'Nhận xét gần nhất',
                                                           style: TextStyle(
-                                                              color: Color(0xFF9586A8),
-                                                              fontFamily: 'RedHatDisplay',
+                                                              color: Color(
+                                                                  0xFF9586A8),
+                                                              fontFamily:
+                                                                  'RedHatDisplay',
                                                               fontSize: 18,
                                                               fontWeight:
-                                                              FontWeight.w500),
+                                                                  FontWeight
+                                                                      .w500),
                                                         ),
                                                         SizedBox(height: 4),
                                                         Text(
                                                           'Tuyệt vời',
                                                           style: TextStyle(
-                                                              color: Color(0xFF2D0C57),
-                                                              fontFamily: 'RedHatDisplay',
+                                                              color: Color(
+                                                                  0xFF2D0C57),
+                                                              fontFamily:
+                                                                  'RedHatDisplay',
                                                               fontSize: 18,
                                                               fontWeight:
-                                                              FontWeight.w500),
+                                                                  FontWeight
+                                                                      .w500),
                                                         ),
                                                         SizedBox(height: 4),
                                                         Text(
                                                           'Luke Skywalker',
                                                           style: TextStyle(
-                                                              color: Color(0xFF2D0C57),
-                                                              fontFamily: 'RedHatDisplay',
+                                                              color: Color(
+                                                                  0xFF2D0C57),
+                                                              fontFamily:
+                                                                  'RedHatDisplay',
                                                               fontSize: 16,
                                                               fontWeight:
-                                                              FontWeight.w400),
+                                                                  FontWeight
+                                                                      .w400),
                                                         )
                                                       ],
                                                     ),
                                                     ElevatedButton(
                                                         onPressed: () {},
-                                                        style: ElevatedButton.styleFrom(
-                                                            primary:
-                                                            const Color(0xFFFBEAFF)),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                primary:
+                                                                    const Color(
+                                                                        0xFFFBEAFF)),
                                                         child: const Text(
                                                           'Xem tất cả',
                                                           style: TextStyle(
-                                                              color: Color(0xFF2D0C57),
-                                                              fontFamily: 'RedHatDisplay',
+                                                              color: Color(
+                                                                  0xFF2D0C57),
+                                                              fontFamily:
+                                                                  'RedHatDisplay',
                                                               fontSize: 16,
                                                               fontWeight:
-                                                              FontWeight.w500),
+                                                                  FontWeight
+                                                                      .w500),
                                                         ))
                                                   ],
                                                 )
@@ -247,10 +286,11 @@ class DetailProduct extends StatelessWidget {
                                                       color: Color(0xFF9586A8)),
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
-                                                      BorderRadius.circular(8)),
+                                                          BorderRadius.circular(
+                                                              8)),
                                                   primary: Colors.white,
-                                                  padding: const EdgeInsets.symmetric(
-                                                      vertical: 12),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 12),
                                                 ),
                                                 onPressed: () {},
                                                 child: const Icon(
@@ -264,19 +304,29 @@ class DetailProduct extends StatelessWidget {
                                             flex: 3,
                                             child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(8)),
-                                                    primary: const Color(0xFF0BCE83),
-                                                    padding: const EdgeInsets.symmetric(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8)),
+                                                    primary:
+                                                        const Color(0xFF0BCE83),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
                                                         vertical: 12)),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Get.find<AuthController>()
+                                                      .addProductToCart(
+                                                          product);
+                                                },
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: const [
                                                     Icon(
-                                                      Icons.shopping_cart_outlined,
+                                                      Icons
+                                                          .shopping_cart_outlined,
                                                       size: 24,
                                                       color: Colors.white,
                                                     ),
@@ -286,7 +336,8 @@ class DetailProduct extends StatelessWidget {
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 16,
-                                                          fontWeight: FontWeight.w700),
+                                                          fontWeight:
+                                                              FontWeight.w700),
                                                     ),
                                                   ],
                                                 )),
@@ -301,16 +352,18 @@ class DetailProduct extends StatelessWidget {
                       ),
                     ),
                   );
-                }else{
+                } else {
                   return Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text("😿",style: TextStyle(fontSize: 130),),
-                          Text("Sản phẩm này đã bị xóa"),
-                        ],
-                      )
-                  );
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        "😿",
+                        style: TextStyle(fontSize: 130),
+                      ),
+                      Text("Sản phẩm này đã bị xóa"),
+                    ],
+                  ));
                 }
               })),
       // bottomNavigationBar: GetBuilder<ProductController>(
