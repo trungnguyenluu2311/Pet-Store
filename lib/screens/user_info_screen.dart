@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/auth_controller.dart';
 import 'package:flutter_project/models/order_model.dart';
 import 'package:flutter_project/models/user_model.dart';
+import 'package:flutter_project/screens/change_address_screen.dart';
+import 'package:flutter_project/screens/change_info_user_screen.dart';
+import 'package:flutter_project/screens/change_pass_screen.dart';
 import 'package:flutter_project/screens/transaction_history_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -50,7 +53,9 @@ class UserInfo extends StatelessWidget {
                     InkWell(
                       customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(()=>ChangeInfo(user.name!, user.phone!));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         child: Column(
@@ -77,7 +82,7 @@ class UserInfo extends StatelessWidget {
                                   color: const Color(0xFFE2CBFF),
                                   borderRadius: BorderRadius.circular(30)),
                               child: const Text(
-                                'EDIT PROFILE',
+                                'CHỈNH SỬA HỒ SƠ',
                                 style: TextStyle(
                                     color: Color(0xFF2D0C57),
                                     fontSize: 14,
@@ -185,7 +190,9 @@ class UserInfo extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(()=>ChangeAddress(user.address!));
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Row(
@@ -213,7 +220,9 @@ class UserInfo extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(()=>ChangePass());
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Row(
@@ -241,7 +250,9 @@ class UserInfo extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.find<AuthController>().signOutUser();
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Row(

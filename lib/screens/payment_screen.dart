@@ -3,17 +3,20 @@ import 'package:flutter_project/controllers/auth_controller.dart';
 import 'package:flutter_project/controllers/utilities_controller.dart';
 import 'package:flutter_project/models/product_model.dart';
 import 'package:flutter_project/models/user_model.dart';
+import 'package:flutter_project/screens/change_info_user_screen.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'change_address_screen.dart';
 import 'detail_product.dart';
 
 class Payment extends StatelessWidget {
   final formatter = new NumberFormat("#,###");
   UserModel user = UserModel();
   late String useraddress;
-  late double totals;
+
+  // late double totals;
   late double totalstemp;
 
   @override
@@ -58,8 +61,7 @@ class Payment extends StatelessWidget {
                           children: [
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFD9D0E3)),
@@ -71,61 +73,81 @@ class Payment extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    children: const [
-                                      Icon(
+                                    children: [
+                                      const Icon(
                                         Icons.person_rounded,
                                         color: Color(0xFF2D0C57),
                                         size: 18,
                                       ),
-                                      SizedBox(
-                                        width: 10,
+                                      const SizedBox(
+                                        width: 6,
                                       ),
-                                      Text(
-                                        'Thông tin người mua',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: "RedHatDisplay",
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFF2D0C57)),
+                                      const Expanded(
+                                        child: Text(
+                                          'Thông tin người mua',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: "RedHatDisplay",
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xFF2D0C57)),
+                                        ),
+                                      ),
+                                      Material(
+                                        color: Colors.white,
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(() => ChangeInfo(
+                                                user.name!, user.phone!));
+                                          },
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: const Text(
+                                            'Thay đổi',
+                                            style: TextStyle(
+                                                color: Color(0xFF7203FF),
+                                                fontFamily: 'RedHatDisplay',
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 12),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                        horizontal: 18),
                                     child: Text(
                                       user.name!,
                                       style: const TextStyle(
                                         fontFamily: "RedHatDislay",
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w500,
                                         color: Color(0xFF9586A8),
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
                                   const SizedBox(height: 6),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                        horizontal: 18),
                                     child: Text(
                                       user.phone!,
                                       style: const TextStyle(
                                         fontFamily: "RedHatDislay",
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w500,
                                         color: Color(0xFF9586A8),
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 24),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFD9D0E3)),
@@ -137,47 +159,67 @@ class Payment extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    children: const [
-                                      Icon(
+                                    children: [
+                                      const Icon(
                                         Icons.location_on,
                                         color: Color(0xFF2D0C57),
                                         size: 18,
                                       ),
-                                      SizedBox(
-                                        width: 10,
+                                      const SizedBox(
+                                        width: 6,
                                       ),
-                                      Text(
-                                        'Địa chỉ',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: "RedHatDisplay",
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFF2D0C57)),
+                                      const Expanded(
+                                        child: Text(
+                                          'Địa chỉ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: "RedHatDisplay",
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xFF2D0C57)),
+                                        ),
+                                      ),
+                                      Material(
+                                        color: Colors.white,
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(() =>
+                                                ChangeAddress(user.address!));
+                                          },
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: const Text(
+                                            'Thay đổi',
+                                            style: TextStyle(
+                                                color: Color(0xFF7203FF),
+                                                fontFamily: 'RedHatDisplay',
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 12),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                        horizontal: 18),
                                     child: Text(
                                       user.address!,
                                       style: const TextStyle(
                                         fontFamily: "RedHatDislay",
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w500,
                                         color: Color(0xFF9586A8),
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 24),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFD9D0E3)),
@@ -196,7 +238,7 @@ class Payment extends StatelessWidget {
                                         size: 18,
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        width: 6,
                                       ),
                                       Text(
                                         'Phương thức vận chuyển',
@@ -208,7 +250,7 @@ class Payment extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 12),
                                   GetBuilder<UtilitiesController>(
                                       builder: (controller) {
                                     return Column(
@@ -236,7 +278,7 @@ class Payment extends StatelessWidget {
                                                     : const Color(0xFF9586A8),
                                                 fontFamily: "RedHatDisplay",
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ],
@@ -264,7 +306,7 @@ class Payment extends StatelessWidget {
                                                     : const Color(0xFF9586A8),
                                                 fontFamily: "RedHatDisplay",
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ],
@@ -292,7 +334,7 @@ class Payment extends StatelessWidget {
                                                     : const Color(0xFF9586A8),
                                                 fontFamily: "RedHatDisplay",
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ],
@@ -320,7 +362,7 @@ class Payment extends StatelessWidget {
                                                     : const Color(0xFF9586A8),
                                                 fontFamily: "RedHatDisplay",
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ],
@@ -331,11 +373,10 @@ class Payment extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 24),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFD9D0E3)),
@@ -354,7 +395,7 @@ class Payment extends StatelessWidget {
                                         size: 18,
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        width: 6,
                                       ),
                                       Text(
                                         'Phương thức thanh toán',
@@ -366,7 +407,7 @@ class Payment extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 12),
                                   GetBuilder<UtilitiesController>(
                                       builder: (controller) {
                                     return Column(
@@ -394,7 +435,7 @@ class Payment extends StatelessWidget {
                                                     : const Color(0xFF9586A8),
                                                 fontFamily: "RedHatDisplay",
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ],
@@ -422,7 +463,7 @@ class Payment extends StatelessWidget {
                                                     : const Color(0xFF9586A8),
                                                 fontFamily: "RedHatDisplay",
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ],
@@ -433,11 +474,10 @@ class Payment extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 24),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFD9D0E3)),
@@ -456,7 +496,7 @@ class Payment extends StatelessWidget {
                                         size: 18,
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        width: 6,
                                       ),
                                       Text(
                                         'Mã giảm giá',
@@ -468,11 +508,18 @@ class Payment extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 12),
                                   Row(
                                     children: [
                                       const Expanded(
                                         child: TextField(
+                                          decoration: InputDecoration(
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              0xFF7203FF)))),
+                                          cursorColor: Color(0xFF7203FF),
                                           style: TextStyle(
                                               fontFamily: 'RedHatDisplay',
                                               fontWeight: FontWeight.w400,
@@ -501,11 +548,10 @@ class Payment extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 24),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: const Color(0xFFD9D0E3)),
@@ -524,7 +570,7 @@ class Payment extends StatelessWidget {
                                         size: 18,
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        width: 6,
                                       ),
                                       Text(
                                         'Giỏ hàng',
@@ -536,7 +582,7 @@ class Payment extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 12),
                                   GetBuilder<AuthController>(
                                       builder: (_) => StreamBuilder<
                                               QuerySnapshot>(
@@ -545,7 +591,7 @@ class Payment extends StatelessWidget {
                                           builder: (context, stream) {
                                             if (stream.connectionState ==
                                                 ConnectionState.waiting) {
-                                              return Center(
+                                              return const Center(
                                                   child:
                                                       CircularProgressIndicator());
                                             }
@@ -589,7 +635,7 @@ class Payment extends StatelessWidget {
                                               children: [
                                                 ListView.builder(
                                                     physics:
-                                                        const BouncingScrollPhysics(),
+                                                        const NeverScrollableScrollPhysics(),
                                                     scrollDirection:
                                                         Axis.vertical,
                                                     shrinkWrap: true,
@@ -608,12 +654,64 @@ class Payment extends StatelessWidget {
                                                             const EdgeInsets
                                                                     .only(
                                                                 bottom: 6),
-                                                        child: Row(
-                                                          children: [
-                                                            Expanded(
-                                                                child: Text(
-                                                              product.name,
-                                                              style: const TextStyle(
+                                                        child: Material(
+                                                          color: Colors.white,
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              _changetodetail(
+                                                                  product.id!);
+                                                            },
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      18),
+                                                              child: Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                      child:
+                                                                          Text(
+                                                                    product
+                                                                        .name,
+                                                                    style: const TextStyle(
+                                                                        color: Color(
+                                                                            0xFF2D0C57),
+                                                                        fontFamily:
+                                                                            'RedHatDisplay',
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                  )),
+                                                                  Text(
+                                                                    "${formatter.format((double.parse(product.price) - (double.parse(product.discount) / 100 * double.parse(product.price))) * double.parse(product.quantum!))} vnđ",
+                                                                    style: const TextStyle(
+                                                                        color: Color(
+                                                                            0xFF9586A8),
+                                                                        fontFamily:
+                                                                            'RedHatDisplay',
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 18),
+                                                  child: Row(
+                                                    children: [
+                                                      const Expanded(
+                                                          child: Text(
+                                                              'Tổng tiền',
+                                                              style: TextStyle(
                                                                   color: Color(
                                                                       0xFF2D0C57),
                                                                   fontFamily:
@@ -621,82 +719,21 @@ class Payment extends StatelessWidget {
                                                                   fontSize: 18,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w400),
-                                                            )),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                  text: product
-                                                                      .price,
-                                                                  style: const TextStyle(
-                                                                      color: Color(
-                                                                          0xFF2D0C57),
-                                                                      fontFamily:
-                                                                          'RedHatDisplay',
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400),
-                                                                  children: const [
-                                                                    TextSpan(
-                                                                        text:
-                                                                            ' đ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              Color(0xFF9586A8),
-                                                                          fontSize:
-                                                                              14,
-                                                                          fontWeight:
-                                                                              FontWeight.w400,
-                                                                        ))
-                                                                  ]),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    }),
-                                                Row(
-                                                  children: [
-                                                    const Expanded(
-                                                        child: Text('Tổng tiền',
-                                                            style: TextStyle(
-                                                                color: Color(
-                                                                    0xFF2D0C57),
-                                                                fontFamily:
-                                                                    'RedHatDisplay',
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500))),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                          text: formatter.format(
-                                                              TotalsPrice()),
-                                                          style: const TextStyle(
-                                                              color: Color(
-                                                                  0xFF2D0C57),
-                                                              fontFamily:
-                                                                  'RedHatDisplay',
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                          children: const [
-                                                            TextSpan(
-                                                                text: ' đ',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color(
-                                                                      0xFF9586A8),
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ))
-                                                          ]),
-                                                    ),
-                                                  ],
+                                                                          .w500))),
+                                                      Text(
+                                                        '${formatter.format(TotalsPrice())} đ',
+                                                        style: const TextStyle(
+                                                            color: Color(
+                                                                0xFF9586A8),
+                                                            fontFamily:
+                                                                'RedHatDisplay',
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 )
                                               ],
                                             );
@@ -739,7 +776,7 @@ class Payment extends StatelessWidget {
     } else {
       Get.find<AuthController>().paythebill(
           user,
-          totals.toString(),
+          totalstemp.toString(),
           Get.find<UtilitiesController>().selectRadioShipping,
           Get.find<UtilitiesController>().selectRadioPayment);
     }
