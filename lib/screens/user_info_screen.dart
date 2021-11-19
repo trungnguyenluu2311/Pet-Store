@@ -6,6 +6,7 @@ import 'package:flutter_project/screens/change_address_screen.dart';
 import 'package:flutter_project/screens/change_info_user_screen.dart';
 import 'package:flutter_project/screens/change_pass_screen.dart';
 import 'package:flutter_project/screens/transaction_history_screen.dart';
+import 'package:flutter_project/screens/list_favorite_product.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -191,6 +192,36 @@ class UserInfo extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: InkWell(
                         onTap: () {
+                          _favProScreen();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: Row(
+                            children: const [
+                              Icon(Icons.favorite_outline,
+                                  size: 16, color: Color(0xFF9586A8)),
+                              SizedBox(width: 12),
+                              Expanded(
+                                child: Text('Sản phẩm yêu thích',
+                                    style: TextStyle(
+                                        color: Color(0xFF2D0C57),
+                                        fontFamily: 'RedHatDisplay',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18)),
+                              ),
+                              Icon(Icons.keyboard_arrow_right,
+                                  size: 24, color: Color(0xFF9586A8))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Divider(
+                        indent: 12, endIndent: 12, height: 0, thickness: 1),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: InkWell(
+                        onTap: () {
                           Get.to(()=>ChangeAddress(user.address!));
                         },
                         child: Padding(
@@ -312,6 +343,9 @@ class UserInfo extends StatelessWidget {
 void _tranHisScreen() {
     Get.to(()=>TranHis());
   }
+void _favProScreen() {
+  Get.to(()=>FavProSceen());
+}
 
 /*void _changePass(){
     Get.to(()=>ChangePass());

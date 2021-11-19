@@ -8,6 +8,7 @@ class ProductController extends GetxController {
   RxInt _productListCount = 0.obs;
   RxInt get productListCount => _productListCount;
   void setproductListCount(int val) => _productListCount.value = val;
+  var tagIndex = 0;
 
   final ProductService _productService = ProductService();
 
@@ -21,9 +22,32 @@ class ProductController extends GetxController {
     update();
   }
 
+  void changeTagIndex(int index) {
+    tagIndex = index;
+    update();
+  }
+
   Stream<QuerySnapshot> fetchProducts() {
     Stream<QuerySnapshot> qSnapStream =
     _productService.fetchProducts();
+    return qSnapStream;
+  }
+
+  Stream<QuerySnapshot> fetchProductsMedic() {
+    Stream<QuerySnapshot> qSnapStream =
+    _productService.fetchProductsMedic();
+    return qSnapStream;
+  }
+
+  Stream<QuerySnapshot> fetchProductsFood() {
+    Stream<QuerySnapshot> qSnapStream =
+    _productService.fetchProductsFood();
+    return qSnapStream;
+  }
+
+  Stream<QuerySnapshot> fetchProductsToy() {
+    Stream<QuerySnapshot> qSnapStream =
+    _productService.fetchProductsToy();
     return qSnapStream;
   }
 

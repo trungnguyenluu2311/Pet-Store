@@ -17,6 +17,7 @@ class Product{
   late String? quantum;
   late String? howtouse;
   late String? components;
+  late String? tag;
 
   Product({
     this.id,
@@ -27,6 +28,7 @@ class Product{
     this.quantum,
     this.howtouse,
     this.components,
+    this.tag
   });
 
   Product.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
@@ -39,6 +41,20 @@ class Product{
     quantum = documentSnapshot["quantum"];
     howtouse =  documentSnapshot["howtouse"];
     components =  documentSnapshot["components"];
+    tag = documentSnapshot["tag"];
+  }
+
+  Product.fromDocumentSnapshotFav({required DocumentSnapshot documentSnapshot}) {
+    id = documentSnapshot.id;
+    name = documentSnapshot["name"];
+    namelowercase = documentSnapshot["namelowercase"];
+    price = documentSnapshot["price"];
+    discount = documentSnapshot["discount"];
+    pathImage = documentSnapshot["path"];
+    quantum = documentSnapshot["quantum"];
+    howtouse =  documentSnapshot["howtouse"];
+    components =  documentSnapshot["components"];
+    tag = documentSnapshot["tag"];
   }
 
   Product.fromDocumentSnapshotForcart({required DocumentSnapshot documentSnapshot}) {
@@ -71,6 +87,7 @@ class Product{
     quantum = (data as dynamic)["quantum"];
     howtouse =  (data as dynamic)["howtouse"];
     components =  (data as dynamic)["components"];
+    tag =  (data as dynamic)["tag"];
   }
 
   Product.fromJson(Map<String, dynamic> json) {

@@ -134,26 +134,6 @@ class _ChangePassState extends State<ChangePass>
                   contentPadding: EdgeInsets.all(12),
                 ),
               ),
-              const SizedBox(height: 24),
-              TextField(
-                controller: _newpassInputCtrl,
-                cursorColor: const Color(0xFF7203FF),
-                style:
-                const TextStyle(fontSize: 18, fontFamily: 'RedHatDisplay'),
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF7203FF),
-                      )),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: Color(0xFFD9D0E3))),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                ),
-              ),
               const Text("Nhập lại mật khẩu mới",
                   style: TextStyle(
                     fontSize: 18,

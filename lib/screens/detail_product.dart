@@ -15,12 +15,6 @@ class DetailProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // extendBodyBehindAppBar: false,
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   // title: Text("Name Product", style: TextStyle(fontSize: 30,color: Colors.black)),
-      //   backgroundColor: Color(0xFF085B6E),
-      // ),
       body: GetBuilder<ProductController>(
           builder: (_) => StreamBuilder<DocumentSnapshot>(
               stream: Get.find<ProductController>().fetchProduct(productId),
@@ -41,14 +35,10 @@ class DetailProduct extends StatelessWidget {
                       child: Stack(
                         alignment: AlignmentDirectional.bottomCenter,
                         children: [
-                          // ClipRRect(
-                          //   child: Image.asset('assets/owl.jpg'),
-                          // ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.network(product.pathImage),
-                              // Image.asset('assets/owl.jpg'),
                             ],
                           ),
                           Column(children: [
@@ -78,24 +68,73 @@ class DetailProduct extends StatelessWidget {
                                             fontWeight: FontWeight.w700),
                                       ),
                                       const SizedBox(height: 12),
+                                      int.parse(product.discount) == 0 ?
                                       RichText(
-                                          text: TextSpan(
-                                              text: formatter.format(
-                                                  double.parse(product.price)),
-                                              style: const TextStyle(
-                                                  color: Color(0xFF2D0C57),
-                                                  fontSize: 32,
-                                                  fontFamily: 'RedHatDisplay',
-                                                  fontWeight: FontWeight.w700),
-                                              children: const [
+                                        text: TextSpan(
+                                            text: formatter.format(double.parse(product.price)),
+                                            style: const TextStyle(
+                                                color: Color(0xFF2D0C57),
+                                                fontFamily: 'RedHatDisplay',
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w700),
+                                            children: const [
+                                              TextSpan(
+                                                  text: ' vnđ',
+                                                  style: TextStyle(
+                                                      color: Color(0xFF9586A8),
+                                                      fontSize: 24,
+                                                      fontWeight: FontWeight.w400))
+                                            ]),
+                                      ) : RichText(
+                                        text: TextSpan(
+                                            text: formatter.format((double.parse(product
+                                                .price) - (double.parse(product.discount) / 100 * double
+                                                .parse(product.price)))),
+                                            style: const TextStyle(
+                                                color: Color(0xFF2D0C57),
+                                                fontFamily: 'RedHatDisplay',
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.w700),
+                                            children: const [
+                                              TextSpan(
+                                                  text: ' vnđ',
+                                                  style: TextStyle(
+                                                      color: Color(0xFF9586A8),
+                                                      fontSize: 24,
+                                                      fontWeight: FontWeight.w400))
+                                            ]),
+                                      ),
+                                      int.parse(product.discount) == 0 ?
+                                      RichText(
+                                        text: const TextSpan(
+                                          text: "",
+                                          style: TextStyle(
+                                              color: Color(0xFF9586A8),
+                                              fontFamily: 'RedHatDisplay',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+
+                                      ) : RichText(
+                                        text: TextSpan(
+                                          text: formatter.format(double.parse(product.price)),
+                                          style: const TextStyle(
+                                              decoration: TextDecoration.lineThrough,
+                                              color: Color(0xFF9586A8),
+                                              fontFamily: 'RedHatDisplay',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700),
+                                          children: const [
                                             TextSpan(
-                                                text: ' đ / cái',
+                                                text: ' vnđ',
                                                 style: TextStyle(
+                                                    decoration: TextDecoration.lineThrough,
                                                     color: Color(0xFF9586A8),
-                                                    fontSize: 24,
-                                                    fontWeight:
-                                                        FontWeight.w400))
-                                          ])),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400))
+                                          ],
+                                        ),
+                                      ),
                                       const SizedBox(height: 30),
                                       Expanded(
                                         child: PageView(
@@ -278,69 +317,207 @@ class DetailProduct extends StatelessWidget {
                                       const SizedBox(height: 60),
                                       Row(
                                         children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  side: const BorderSide(
-                                                      color: Color(0xFF9586A8)),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8)),
-                                                  primary: Colors.white,
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 12),
-                                                ),
-                                                onPressed: () {},
-                                                child: const Icon(
-                                                  Icons.favorite_outline,
-                                                  color: Color(0xFF9586A8),
-                                                  size: 24,
-                                                )),
+                                          GetBuilder<AuthController>(
+                                            builder: (_) => StreamBuilder<DocumentSnapshot>(
+                                              stream: Get.find<AuthController>().fetchFavProduct(productId),
+                                              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                                  return Center(child: CircularProgressIndicator());
+                                                }
+                                                if (snapshot.hasError) {
+                                                  return Center(child: Text(snapshot.error.toString()));
+                                                }
+                                                if(snapshot.data!.exists){
+                                                  return Expanded(
+                                                    flex: 1,
+                                                    child: ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(
+                                                          side: const BorderSide(
+                                                              color: Color(0xFF9586A8)),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  8)),
+                                                          primary: Colors.white,
+                                                          padding: const EdgeInsets
+                                                              .symmetric(vertical: 12),
+                                                        ),
+                                                        onPressed: () {
+                                                          _unlikeaproduct(product);
+                                                        },
+                                                        child: const Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                          size: 24,
+                                                        )),
+                                                  );
+                                                }
+                                                else{
+                                                  return Expanded(
+                                                    flex: 1,
+                                                    child: ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(
+                                                          side: const BorderSide(
+                                                              color: Color(0xFF9586A8)),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  8)),
+                                                          primary: Colors.white,
+                                                          padding: const EdgeInsets
+                                                              .symmetric(vertical: 12),
+                                                        ),
+                                                        onPressed: () {
+                                                          _likeaproduct(product);
+                                                        },
+                                                        child: const Icon(
+                                                          Icons.favorite,
+                                                          color: Color(0xFF9586A8),
+                                                          size: 24,
+                                                        )),
+                                                  );
+                                                }
+                                              }
+                                            )
                                           ),
                                           const SizedBox(width: 12),
-                                          Expanded(
-                                            flex: 3,
-                                            child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
+                                          GetBuilder<ProductController>(
+                                              builder: (_) => StreamBuilder<DocumentSnapshot>(
+                                                  stream: Get.find<ProductController>().fetchProduct(productId),
+                                                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                                      return Center(child: CircularProgressIndicator());
+                                                    }
+                                                    if (snapshot.hasError) {
+                                                      return Center(child: Text(snapshot.error.toString()));
+                                                    }
+                                                    if(snapshot.data!.exists){
+                                                      final Product product = Product.fromDocumentSnapshot(documentSnapshot: snapshot.data!);
+                                                      if (int.parse(product.quantum!) == 0) {
+                                                        return Expanded(
+                                                          flex: 3,
+                                                          child: ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                  shape:
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                          8)),
+                                                                  primary:
+                                                                  const Color(0xFF0BCE83),
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical: 12)),
+                                                              onPressed: null,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment.center,
+                                                                children: const [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .shopping_cart_outlined,
+                                                                    size: 24,
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  SizedBox(width: 12),
+                                                                  Text(
+                                                                    'ĐÃ BÁN HẾT',
+                                                                    style: TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 16,
+                                                                        fontWeight:
+                                                                        FontWeight.w700),
+                                                                  ),
+                                                                ],
+                                                              )),
+                                                        );
+                                                      } else {
+                                                        return Expanded(
+                                                          flex: 3,
+                                                          child: ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                  shape:
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                          8)),
+                                                                  primary:
+                                                                  const Color(0xFF0BCE83),
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical: 12)),
+                                                              onPressed: () {
+                                                                Get.find<AuthController>()
+                                                                    .addProductToCart(
+                                                                    product);
+                                                              },
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment.center,
+                                                                children: const [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .shopping_cart_outlined,
+                                                                    size: 24,
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  SizedBox(width: 12),
+                                                                  Text(
+                                                                    'THÊM VÀO GIỎ HÀNG',
+                                                                    style: TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 16,
+                                                                        fontWeight:
+                                                                        FontWeight.w700),
+                                                                  ),
+                                                                ],
+                                                              )),
+                                                        );
+                                                      }
+                                                    }
+                                                    else{
+                                                      return Expanded(
+                                                        flex: 3,
+                                                        child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                                shape:
+                                                                RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
                                                                         8)),
-                                                    primary:
-                                                        const Color(0xFF0BCE83),
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 12)),
-                                                onPressed: () {
-                                                  Get.find<AuthController>()
-                                                      .addProductToCart(
-                                                          product);
-                                                },
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    Icon(
-                                                      Icons
-                                                          .shopping_cart_outlined,
-                                                      size: 24,
-                                                      color: Colors.white,
-                                                    ),
-                                                    SizedBox(width: 12),
-                                                    Text(
-                                                      'THÊM VÀO GIỎ HÀNG',
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                    ),
-                                                  ],
-                                                )),
+                                                                primary:
+                                                                const Color(0xFF0BCE83),
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical: 12)),
+                                                            onPressed: null,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment.center,
+                                                              children: const [
+                                                                Icon(
+                                                                  Icons
+                                                                      .shopping_cart_outlined,
+                                                                  size: 24,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                SizedBox(width: 12),
+                                                                Text(
+                                                                  'ĐÃ BỊ XÓA',
+                                                                  style: TextStyle(
+                                                                      color: Colors.white,
+                                                                      fontSize: 16,
+                                                                      fontWeight:
+                                                                      FontWeight.w700),
+                                                                ),
+                                                              ],
+                                                            )),
+                                                      );
+                                                    }
+                                                  })
                                           ),
                                         ],
                                       )
@@ -366,60 +543,14 @@ class DetailProduct extends StatelessWidget {
                   ));
                 }
               })),
-      // bottomNavigationBar: GetBuilder<ProductController>(
-      //     builder: (_) => StreamBuilder<DocumentSnapshot>(
-      //         stream: Get.find<ProductController>().fetchProduct(productId),
-      //         builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-      //           if (snapshot.connectionState == ConnectionState.waiting) {
-      //             return Center(child: CircularProgressIndicator());
-      //           }
-      //           if (snapshot.hasError) {
-      //             return Center(child: Text(snapshot.error.toString()));
-      //           }
-      //           if(snapshot.data!.exists){
-      //             final Product product = Product.fromDocumentSnapshot(documentSnapshot: snapshot.data!);
-      //             if (int.parse(product.quantum!) == 0) {
-      //               return BottomAppBar(
-      //                 color: Color(0xFF085B6E),
-      //                 child: Container(
-      //                   padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-      //                   child: ElevatedButton(
-      //                     onPressed: null,
-      //                     child: Text('Đã bán hết'),
-      //                   ),
-      //                 ),
-      //               );
-      //             } else {
-      //               return BottomAppBar(
-      //                 color: Color(0xFF085B6E),
-      //                 child: Container(
-      //                   padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-      //                   child: ElevatedButton(
-      //                     style: ElevatedButton.styleFrom(
-      //                         primary: Color(0xFF0D9ABA)),
-      //                     onPressed: () {
-      //                       Get.find<AuthController>().addProductToCart(product);
-      //                     },
-      //                     child:
-      //                     Text('Thêm sản phẩm vào giỏ hàng', style: TextStyle(fontSize: 20)),
-      //                   ),
-      //                 ),
-      //               );
-      //             }
-      //           }
-      //           else{
-      //             return BottomAppBar(
-      //               color: Color(0xFF085B6E),
-      //               child: Container(
-      //                 padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-      //                 child: ElevatedButton(
-      //                   onPressed: null,
-      //                   child: Text('Đã bị xóa'),
-      //                 ),
-      //               ),
-      //             );
-      //           }
-      //         })),
     );
   }
+}
+
+void _likeaproduct(Product product){
+  Get.find<AuthController>().LikeAProduct(product);
+}
+
+void _unlikeaproduct(Product product){
+  Get.find<AuthController>().UnlikeAProduct(product);
 }

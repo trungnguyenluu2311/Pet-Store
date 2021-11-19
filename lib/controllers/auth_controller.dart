@@ -308,4 +308,24 @@ class AuthController extends GetxController {
   Future<void> completeOrder(String idorder) async {
     await _userService.completeOrder(idorder);
   }
+
+  Stream<QuerySnapshot> fetchAllFavProduct() {
+    Stream<QuerySnapshot> qSnapStream =
+    _userService.fetchAllFavProduct();
+    return qSnapStream;
+  }
+
+  Stream<DocumentSnapshot> fetchFavProduct(String idproduct) {
+    Stream<DocumentSnapshot> qSnapStream =
+    _userService.fetchFavProduct(idproduct);
+    return qSnapStream;
+  }
+
+  Future<void> LikeAProduct(Product product) async {
+    await _userService.LikeAProduct(product);
+  }
+
+  Future<void> UnlikeAProduct(Product product) async {
+    await _userService.UnlikeAProduct(product);
+  }
 }

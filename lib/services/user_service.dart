@@ -281,4 +281,31 @@ class UserService {
     }
 
   }
+
+  Stream<QuerySnapshot> fetchAllFavProduct() {
+    return _firestore.collection("users").doc(_fireAuth.currentUser!.uid).collection("favproduct").snapshots();
+  }
+
+  Stream<DocumentSnapshot> fetchFavProduct(String productId) {
+    return _firestore.collection("users").doc(_fireAuth.currentUser!.uid).collection("favproduct").doc(productId.toString()).snapshots();
+  }
+
+  Future<void> LikeAProduct(Product product) async {
+    await _firestore.collection("users").doc(_fireAuth.currentUser!.uid).collection("favproduct").doc(product.id).set({
+      "id": product.id,
+      "name": product.name,
+      "namelowercase": product.name.toLowerCase(),
+      "price": product.price,
+      "discount": product.discount,
+      "path": product.pathImage,
+      "quantum": product.quantum,
+      "howtouse": product.howtouse,
+      "components": product.components,
+      "tag": product.tag,
+    });
+  }
+
+  Future<void> UnlikeAProduct(Product product) async {
+    await _firestore.collection("users").doc(_fireAuth.currentUser!.uid).collection("favproduct").doc(product.id).delete();
+  }
 }

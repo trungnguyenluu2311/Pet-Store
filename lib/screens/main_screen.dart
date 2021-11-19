@@ -25,26 +25,6 @@ class MainScreen extends GetWidget<UtilitiesController> {
         builder: (controller){
           return Scaffold(
             key: _scaffoldKey,
-            // appBar: AppBar(
-            //   iconTheme: IconThemeData(color: Colors.grey[50]),
-            //   centerTitle: true,
-            //   title: Text(controller.titleScreen, style: TextStyle(fontSize: 30,color: Colors.grey[50])),
-            //   backgroundColor: Color(0xFF085B6E),
-            //   // actions: [
-            //   //   Padding(
-            //   //     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-            //   //     child: IconButton(
-            //   //       icon: Icon(
-            //   //         Icons.notifications_none,
-            //   //         color: Colors.grey[50],
-            //   //         size: 35,
-            //   //       ),
-            //   //       onPressed: (){Get.to(NofiScreen());},
-            //   //       // onPressed: () {Get.find<AuthController>().signOutUser();},
-            //   //     ),
-            //   //   ),
-            //   // ],
-            // ),
             body: GetBuilder<UtilitiesController>(
               init: UtilitiesController(),
               builder: (s) => IndexedStack(
