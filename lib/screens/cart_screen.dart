@@ -45,7 +45,7 @@ class CartScreen extends GetWidget<AuthController> {
                         builder: (context, stream) {
                           if (stream.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
+                            return Center(child: const CircularProgressIndicator());
                           }
                           if (stream.hasError) {
                             return Center(child: Text(stream.error.toString()));
@@ -108,7 +108,7 @@ class CartScreen extends GetWidget<AuthController> {
               QuerySnapshot querySnapshot = stream.data!;
               return SingleChildScrollView(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: const BoxDecoration(color: Color(0xFFFAF9FE)),
                   child: Column(children: [
                     Column(
@@ -173,198 +173,196 @@ GestureDetector productincart(Product product) {
     onTap: () {
       _changetodetail(product.id!);
     },
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-      child: Container(
-        width: Get.width * 0.94,
-        child: Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Color(0xFFD9D0E3)),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          color: Colors.white,
-          // elevation: 10,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                child: Container(
-                  width: Get.width * 0.35,
-                  height: Get.width * 0.35,
-                  child: Image.network(
-                    "${product.pathImage}",
-                    fit: BoxFit.fill,
-                    width: Get.width * 0.3,
-                    height: Get.width * 0.3,
-                  ),
+    child: Container(
+      padding: const EdgeInsets.only(bottom: 12),
+      width: Get.width * 0.94,
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Color(0xFFD9D0E3)),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        color: Colors.white,
+        // elevation: 10,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+              child: Container(
+                width: Get.width * 0.35,
+                height: Get.width * 0.35,
+                child: Image.network(
+                  "${product.pathImage}",
+                  fit: BoxFit.fill,
+                  width: Get.width * 0.3,
+                  height: Get.width * 0.3,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: Get.width * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 0, 0),
-                      child: Text(
-                        "${product.name}",
-                        style: const TextStyle(
-                          color: Color(0xFF2D0C57),
-                          fontFamily: 'RedHatDisplay',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: Get.width * 0.5,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 10, 0, 0),
+                    child: Text(
+                      "${product.name}",
+                      style: const TextStyle(
+                        color: Color(0xFF2D0C57),
+                        fontFamily: 'RedHatDisplay',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
-                    child: Container(
-                      width: Get.width * 0.5,
-                      child: Row(
-                        children: [
-                          int.parse(product.discount) == 0
-                              ? RichText(
-                                  text: TextSpan(
-                                      text: formatter
-                                          .format(double.parse(product.price)),
-                                      style: const TextStyle(
-                                          color: Color(0xFF2D0C57),
-                                          fontFamily: 'RedHatDisplay',
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w700),
-                                      children: const [
-                                        TextSpan(
-                                            text: ' đ/cái',
-                                            style: TextStyle(
-                                              color: Color(0xFF9586A8),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ))
-                                      ]),
-                                )
-                              : RichText(
-                                  text: TextSpan(
-                                      text: formatter.format((double.parse(
-                                              product.price) -
-                                          (double.parse(product.discount) /
-                                              100 *
-                                              double.parse(product.price)))),
-                                      style: const TextStyle(
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
+                  child: Container(
+                    width: Get.width * 0.5,
+                    child: Row(
+                      children: [
+                        int.parse(product.discount) == 0
+                            ? RichText(
+                                text: TextSpan(
+                                    text: formatter
+                                        .format(double.parse(product.price)),
+                                    style: const TextStyle(
                                         color: Color(0xFF2D0C57),
                                         fontFamily: 'RedHatDisplay',
                                         fontSize: 22,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                      children: const [
-                                        TextSpan(
-                                            text: ' đ/cái',
-                                            style: TextStyle(
-                                                color: Color(0xFF9586A8),
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400))
-                                      ]),
-                                )
-                        ],
-                      ),
+                                        fontWeight: FontWeight.w700),
+                                    children: const [
+                                      TextSpan(
+                                          text: ' đ/cái',
+                                          style: TextStyle(
+                                            color: Color(0xFF9586A8),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ))
+                                    ]),
+                              )
+                            : RichText(
+                                text: TextSpan(
+                                    text: formatter.format((double.parse(
+                                            product.price) -
+                                        (double.parse(product.discount) /
+                                            100 *
+                                            double.parse(product.price)))),
+                                    style: const TextStyle(
+                                      color: Color(0xFF2D0C57),
+                                      fontFamily: 'RedHatDisplay',
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    children: const [
+                                      TextSpan(
+                                          text: ' đ/cái',
+                                          style: TextStyle(
+                                              color: Color(0xFF9586A8),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400))
+                                    ]),
+                              )
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: Container(
-                      width: Get.width * 0.5,
-                      child: Row(
-                        children: [
-                          int.parse(product.discount) == 0
-                              ? const Text("")
-                              : Text(
-                                  "${formatter.format(double.parse(product.price))}",
-                                  style: const TextStyle(
-                                    decoration: TextDecoration.lineThrough,
-                                    color: Color(0xFF2D0C57),
-                                    fontFamily: 'RedHatDisplay',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: Container(
-                      width: Get.width * 0.5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(3),
-                                  minimumSize: const Size(0, 0),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  primary: const Color(0xFF7203FF),
-                                ),
-                                onPressed: () {
-                                  _showDialogremove(product, product.quantum!);
-                                },
-                                child: const Icon(
-                                  Icons.remove,
-                                  size: 24,
-                                ),
-                              ),
-                              Text(
-                                "${product.quantum}",
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  child: Container(
+                    width: Get.width * 0.5,
+                    child: Row(
+                      children: [
+                        int.parse(product.discount) == 0
+                            ? const Text("")
+                            : Text(
+                                "${formatter.format(double.parse(product.price))}",
                                 style: const TextStyle(
-                                  color: Color(0xFF9586A8),
-                                  fontFamily: "RedHatDisplay",
-                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Color(0xFF2D0C57),
+                                  fontFamily: 'RedHatDisplay',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(3),
-                                  minimumSize: const Size(0, 0),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  primary: const Color(0xFF7203FF),
-                                ),
-                                onPressed: () {
-                                  Get.find<AuthController>()
-                                      .addProductInCart(product);
-                                },
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 24,
-                                ),
-                              ),
-                            ],
-                          ),
-                          InkWell(
-                            customBorder: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            onTap: () {
-                              _showDialog(product);
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.all(6),
-                              child:
-                                  Icon(Icons.delete, color: Color(0xFFCF2C0A)),
-                            ),
-                          )
-                        ],
-                      ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  child: Container(
+                    width: Get.width * 0.5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(3),
+                                minimumSize: const Size(0, 0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                primary: const Color(0xFF7203FF),
+                              ),
+                              onPressed: () {
+                                _showDialogremove(product, product.quantum!);
+                              },
+                              child: const Icon(
+                                Icons.remove,
+                                size: 24,
+                              ),
+                            ),
+                            Text(
+                              "${product.quantum}",
+                              style: const TextStyle(
+                                color: Color(0xFF9586A8),
+                                fontFamily: "RedHatDisplay",
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(3),
+                                minimumSize: const Size(0, 0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                primary: const Color(0xFF7203FF),
+                              ),
+                              onPressed: () {
+                                Get.find<AuthController>()
+                                    .addProductInCart(product);
+                              },
+                              child: const Icon(
+                                Icons.add,
+                                size: 24,
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          customBorder: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          onTap: () {
+                            _showDialog(product);
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(6),
+                            child:
+                                Icon(Icons.delete, color: Color(0xFFCF2C0A)),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     ),
@@ -402,17 +400,20 @@ void _showDialogremove(Product product, String quantum) {
               onPressed: () {
                 Get.back();
               },
-              style: ElevatedButton.styleFrom(primary: Color(0xFF085B6E)),
-              child: Text(
-                'Không',
-                style: TextStyle(color: Colors.grey[50]),
+              style: ElevatedButton.styleFrom(primary: const Color(0xFF7203FF)),
+              child: const Text(
+                'KHÔNG',
+                style: TextStyle(
+                    fontFamily: 'RedHatDisplay', fontWeight: FontWeight.w700),
               ),
             ),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Color(0xFF085B6E)),
-                child: Text(
-                  "Có",
-                  style: TextStyle(color: Colors.grey[50]),
+                style:
+                    ElevatedButton.styleFrom(primary: const Color(0xFF7203FF)),
+                child: const Text(
+                  'CÓ',
+                  style: TextStyle(
+                      fontFamily: 'RedHatDisplay', fontWeight: FontWeight.w700),
                 ),
                 onPressed: () =>
                     Get.find<AuthController>().deleteProductFromCart(product)),
@@ -432,10 +433,11 @@ void _showDialog(Product product) {
       return AlertDialog(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
-        title: const Text(
-          "Bỏ sản phẩm khỏi giỏ hàng?",
-          style: TextStyle(color: Colors.black),
-        ),
+        title: const Text("Bỏ sản phẩm khỏi giỏ hàng?",
+            style: TextStyle(
+                color: Color(0xFF2D0C57),
+                fontFamily: 'RedHatDisplay',
+                fontWeight: FontWeight.w700)),
         content: Container(
           height: 80,
           child: Column(
@@ -444,10 +446,8 @@ void _showDialog(Product product) {
                 "😿",
                 style: TextStyle(fontSize: 30),
               ),
-              Text(
-                "Bạn có chắc muốn bỏ sản phẩm khỏi giỏ hàng",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
+              Text("Bạn có chắc muốn bỏ sản phẩm khỏi giỏ hàng",
+                  style: TextStyle(color: Color(0xFF2D0C57), fontSize: 18)),
             ],
           ),
         ),
@@ -460,9 +460,7 @@ void _showDialog(Product product) {
             child: const Text(
               'KHÔNG',
               style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'RedHatDisplay',
-                  fontWeight: FontWeight.w700),
+                  fontFamily: 'RedHatDisplay', fontWeight: FontWeight.w700),
             ),
           ),
           ElevatedButton(

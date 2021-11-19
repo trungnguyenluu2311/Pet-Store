@@ -12,53 +12,58 @@ Container transaction(OrderModel orderModel) {
   Container boxDetail() {
     if (orderModel.isCancel == true) {
       return Container(
-        // color: Colors.green,
-        width: 80.0,
-        height: 20.0,
+        padding: const EdgeInsets.symmetric(horizontal: 6),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              side: BorderSide(color: Color(0xFF9E331B))),
-          color: Color(0xFF9E331B),
+              borderRadius: BorderRadius.circular(30),
+              side: const BorderSide(color: Color(0xFFCF3D1F))),
+          color: const Color(0xFFCF3D1F),
         ),
-        child: Text(
+        child: const Text(
           "Bị hủy",
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'RedHatDisplay',
+              fontWeight: FontWeight.w500),
         ),
       );
     } else if (orderModel.isCompleteAdmin == true &&
         orderModel.isCompleteUser == true) {
       return Container(
-        width: 80.0,
-        height: 20.0,
+        padding: const EdgeInsets.symmetric(horizontal: 6),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              side: BorderSide(color: Color(0xFF026E46))),
-          color: Color(0xFF026E46),
+              borderRadius: BorderRadius.circular(30),
+              side: const BorderSide(color: Color(0xFF1FCF8B))),
+          color: const Color(0xFF1FCF8B),
         ),
-        child: Text(
+        child: const Text(
           "Hoàn thành",
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'RedHatDisplay',
+              fontWeight: FontWeight.w500),
         ),
       );
     } else {
       return Container(
-        // color: Colors.green,
-        width: 80.0,
-        height: 20.0,
+        padding: const EdgeInsets.symmetric(horizontal: 6),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              side: BorderSide(color: Color(0xFF0D296E))),
-          color: Color(0xFF0D296E),
+              borderRadius: BorderRadius.circular(30),
+              side: const BorderSide(color: Color(0xFF471FCF))
+          ),
+          color: const Color(0xFF471FCF),
         ),
-        child: Text(
+        child: const Text(
           "Đang đợi",
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'RedHatDisplay',
+              fontWeight: FontWeight.w500),
         ),
       );
     }
@@ -67,10 +72,10 @@ Container transaction(OrderModel orderModel) {
   return Container(
     width: Get.width * 0.94,
     child: Card(
-      elevation: 4,
+      elevation: 0.5,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          side: BorderSide(color: Colors.white)),
+          borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(color: Color(0xFFD9D0E3))),
       color: Colors.white,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +84,7 @@ Container transaction(OrderModel orderModel) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(12),
                 child: boxDetail(),
               ),
               Container(
@@ -88,18 +93,24 @@ Container transaction(OrderModel orderModel) {
                   padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Text(
                           'Mã đơn hàng:',
                           style: TextStyle(
-                            fontSize: 20,
+                            color: Color(0xFF2D0C57),
+                            fontSize: 18,
+                            fontFamily: 'RedHatDisplay',
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
                       Text(
                         '${orderModel.dateTimeOrder}',
-                        style: TextStyle(
-                          fontSize: 18,
+                        style: const TextStyle(
+                          color: Color(0xFF9586A8),
+                          fontSize: 16,
+                          fontFamily: 'RedHatDisplay',
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -111,18 +122,24 @@ Container transaction(OrderModel orderModel) {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                   child: Row(children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'Ngày:',
                         style: TextStyle(
-                          fontSize: 20,
+                          color: Color(0xFF2D0C57),
+                          fontSize: 18,
+                          fontFamily: 'RedHatDisplay',
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Text(
-                      '$formattedDate',
-                      style: TextStyle(
-                        fontSize: 18,
+                      formattedDate,
+                      style: const TextStyle(
+                        color: Color(0xFF9586A8),
+                        fontSize: 16,
+                        fontFamily: 'RedHatDisplay',
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ]),
@@ -133,18 +150,24 @@ Container transaction(OrderModel orderModel) {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                   child: Row(children: [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'Tên người nhận:',
                         style: TextStyle(
-                          fontSize: 20,
+                          color: Color(0xFF2D0C57),
+                          fontSize: 18,
+                          fontFamily: 'RedHatDisplay',
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Text(
-                      '${orderModel.nameUser}',
-                      style: TextStyle(
-                        fontSize: 18,
+                      orderModel.nameUser,
+                      style: const TextStyle(
+                        color: Color(0xFF9586A8),
+                        fontSize: 16,
+                        fontFamily: 'RedHatDisplay',
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ]),
@@ -157,18 +180,22 @@ Container transaction(OrderModel orderModel) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Text("Tổng tiền: ",
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
+                              color: Color(0xFF2D0C57),
+                              fontSize: 18,
+                              fontFamily: 'RedHatDisplay',
+                              fontWeight: FontWeight.w500,
                             )),
                       ),
                       Text(
                           "${formatter.format(double.parse(orderModel.totals))} vnđ",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
+                          style: const TextStyle(
+                            color: Color(0xFF9586A8),
+                            fontSize: 16,
+                            fontFamily: 'RedHatDisplay',
+                            fontWeight: FontWeight.w500,
                           )),
                     ],
                   ),
