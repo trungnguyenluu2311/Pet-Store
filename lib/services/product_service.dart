@@ -13,6 +13,18 @@ class ProductService {
     return _firestore.collection("products").snapshots();
   }
 
+  Stream<QuerySnapshot> fetchProductsFood() {
+    return _firestore.collection("products").where('tag',isEqualTo:"food").snapshots();
+  }
+
+  Stream<QuerySnapshot> fetchProductsToy() {
+    return _firestore.collection("products").where('tag',isEqualTo:"toy").snapshots();
+  }
+
+  Stream<QuerySnapshot> fetchProductsMedic() {
+    return _firestore.collection("products").where('tag',isEqualTo:"medic").snapshots();
+  }
+
   Stream<QuerySnapshot> searchProducts(String nameProduct) {
     return _firestore.collection("products").orderBy("namelowercase").startAt([nameProduct]).endAt([nameProduct + '\uf8ff']).snapshots();
   }

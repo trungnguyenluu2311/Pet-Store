@@ -9,6 +9,15 @@ import 'detail_product.dart';
 
 class CartScreen extends GetWidget<AuthController> {
   late double totalstemp;
+
+  void _payment() {
+    if(totalstemp == 0){
+      Get.snackbar("Thông báo", "Không có sản phẩm trong giỏ hàng");
+    }
+    else{
+      Get.to(()=>Payment());
+    }
+  }
   final formatter = NumberFormat("#,###");
   Stream<QuerySnapshot> streamQuery =
       Get.find<AuthController>().fetchProductsFromCartUser();
@@ -106,34 +115,50 @@ class CartScreen extends GetWidget<AuthController> {
                 return Center(child: Text(stream.error.toString()));
               }
               QuerySnapshot querySnapshot = stream.data!;
-              return SingleChildScrollView(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: const BoxDecoration(color: Color(0xFFFAF9FE)),
-                  child: Column(children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // const SizedBox(height: 12),
-                        // const SizedBox(height: 36),
-                        const SizedBox(height: 12),
-                        ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: querySnapshot.size,
-                            itemBuilder: (context, index) {
-                              final item = querySnapshot.docs[index];
-                              final Product product =
-                                  Product.fromQueryDocumentSnapshotForcart(
-                                      queryDocSnapshot: item);
-                              return productincart(product);
-                            }),
+              if(querySnapshot.size == 0){
+                return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text("😿",style: TextStyle(fontSize: 130),),
+                        Text("Không có sản phẩm trong giỏ hàng",style: TextStyle(
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700),),
                       ],
-                    ),
-                  ]),
-                ),
-              );
+                    )
+                );
+              }
+              else{
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: const BoxDecoration(color: Color(0xFFFAF9FE)),
+                    child: Column(children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // const SizedBox(height: 12),
+                          // const SizedBox(height: 36),
+                          const SizedBox(height: 12),
+                          ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: querySnapshot.size,
+                              itemBuilder: (context, index) {
+                                final item = querySnapshot.docs[index];
+                                final Product product =
+                                Product.fromQueryDocumentSnapshotForcart(
+                                    queryDocSnapshot: item);
+                                return productincart(product);
+                              }),
+                        ],
+                      ),
+                    ]),
+                  ),
+                );
+              }
             },
           ),
           bottomNavigationBar: Container(
@@ -146,7 +171,7 @@ class CartScreen extends GetWidget<AuthController> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
-                Get.to(() => Payment());
+                _payment();
               },
               child: const Text(
                 'THANH TOÁN',
@@ -236,7 +261,7 @@ GestureDetector productincart(Product product) {
                                         fontWeight: FontWeight.w700),
                                     children: const [
                                       TextSpan(
-                                          text: ' đ/cái',
+                                          text: ' vnđ',
                                           style: TextStyle(
                                             color: Color(0xFF9586A8),
                                             fontSize: 16,
@@ -259,7 +284,7 @@ GestureDetector productincart(Product product) {
                                     ),
                                     children: const [
                                       TextSpan(
-                                          text: ' đ/cái',
+                                          text: ' vnđ',
                                           style: TextStyle(
                                               color: Color(0xFF9586A8),
                                               fontSize: 16,
@@ -279,10 +304,10 @@ GestureDetector productincart(Product product) {
                         int.parse(product.discount) == 0
                             ? const Text("")
                             : Text(
-                                "${formatter.format(double.parse(product.price))}",
+                                "${formatter.format(double.parse(product.price))} vnđ",
                                 style: const TextStyle(
                                   decoration: TextDecoration.lineThrough,
-                                  color: Color(0xFF2D0C57),
+                                  color: Color(0xFF9586A8),
                                   fontFamily: 'RedHatDisplay',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -479,3 +504,4 @@ void _showDialog(Product product) {
     },
   );
 }
+
