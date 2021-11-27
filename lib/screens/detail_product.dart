@@ -242,14 +242,10 @@ class DetailProduct extends StatelessWidget {
                                             Column(
                                               children: [
                                                 Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: const [
-                                                    Text(
-                                                      '10 nhận xét',
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    const Text(
+                                                      'Tổng số bình luận : ',
                                                       style: TextStyle(
                                                           color:
                                                               Color(0xFF2D0C57),
@@ -259,59 +255,37 @@ class DetailProduct extends StatelessWidget {
                                                           fontWeight:
                                                               FontWeight.w700),
                                                     ),
+                                                    StreamBuilder<QuerySnapshot>(
+                                                        stream:  Get.find<ProductController>().fetchCmt(productId),
+                                                        builder: (context, stream){
+                                                          if (stream.connectionState == ConnectionState.waiting) {
+                                                            return const Center(child: CircularProgressIndicator());
+                                                          }
+                                                          if (stream.hasError) {
+                                                            return Center(child: Text(stream.error.toString()));
+                                                          }
+                                                          QuerySnapshot querySnapshot = stream.data!;
+                                                          return Text(
+                                                            querySnapshot.size.toString(),
+                                                            style: const TextStyle(
+                                                                color:
+                                                                Color(0xFF2D0C57),
+                                                                fontFamily:
+                                                                'RedHatDisplay',
+                                                                fontSize: 22,
+                                                                fontWeight:
+                                                                FontWeight.w700),
+                                                          );
+                                                        }
+                                                    ),
                                                   ],
                                                 ),
                                                 const SizedBox(height: 12),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceBetween,
+                                                          .center,
                                                   children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: const [
-                                                        Text(
-                                                          'Nhận xét gần nhất',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF9586A8),
-                                                              fontFamily:
-                                                                  'RedHatDisplay',
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        ),
-                                                        SizedBox(height: 4),
-                                                        Text(
-                                                          'Tuyệt vời',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF2D0C57),
-                                                              fontFamily:
-                                                                  'RedHatDisplay',
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        ),
-                                                        SizedBox(height: 4),
-                                                        Text(
-                                                          'Luke Skywalker',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF2D0C57),
-                                                              fontFamily:
-                                                                  'RedHatDisplay',
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                        )
-                                                      ],
-                                                    ),
                                                     ElevatedButton(
                                                         onPressed: () {
                                                           Get.to(() =>
