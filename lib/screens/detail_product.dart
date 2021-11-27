@@ -315,7 +315,7 @@ class DetailProduct extends StatelessWidget {
                                                     ElevatedButton(
                                                         onPressed: () {
                                                           Get.to(() =>
-                                                              CommentScreen());
+                                                              CommentScreen(productId));
                                                         },
                                                         style: ElevatedButton
                                                             .styleFrom(
@@ -345,52 +345,41 @@ class DetailProduct extends StatelessWidget {
                                       Row(
                                         children: [
                                           GetBuilder<AuthController>(
-                                              builder: (_) => StreamBuilder<
-                                                      DocumentSnapshot>(
-                                                  stream:
-                                                      Get.find<AuthController>()
-                                                          .fetchFavProduct(
-                                                              productId),
-                                                  builder: (context,
-                                                      AsyncSnapshot<
-                                                              DocumentSnapshot>
-                                                          snapshot) {
-                                                    if (snapshot
-                                                            .connectionState ==
-                                                        ConnectionState
-                                                            .waiting) {
-                                                      return Center(
-                                                          child:
-                                                              CircularProgressIndicator());
+                                              builder: (_) => StreamBuilder<DocumentSnapshot>(
+                                                  stream: Get.find<AuthController>().fetchFavProduct(productId),
+                                                  builder: (context, AsyncSnapshot<DocumentSnapshot>snapshot) {
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                                      return Expanded(
+                                                        flex: 1,
+                                                        child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(side: const BorderSide(color: Color(0xFF9586A8)),
+                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                              primary: Colors.white,
+                                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                                            ),
+                                                            onPressed: () {
+                                                              _likeaproduct(
+                                                                  product);
+                                                            },
+                                                            child: const Icon(
+                                                              Icons.favorite,
+                                                              color: Color(0xFF9586A8),
+                                                              size: 24,
+                                                            )),
+                                                      );
                                                     }
                                                     if (snapshot.hasError) {
-                                                      return Center(
-                                                          child: Text(snapshot
-                                                              .error
-                                                              .toString()));
+                                                      return Center(child: Text(snapshot.error.toString()));
                                                     }
                                                     if (snapshot.data!.exists) {
                                                       return Expanded(
                                                         flex: 1,
                                                         child: ElevatedButton(
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              side: const BorderSide(
-                                                                  color: Color(
-                                                                      0xFF7203FF)),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8)),
-                                                              primary:
-                                                                  Colors.white,
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .symmetric(
-                                                                      vertical:
-                                                                          12),
+                                                            style: ElevatedButton.styleFrom(
+                                                              side: const BorderSide(color: Color(0xFF7203FF)),
+                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                              primary: Colors.white,
+                                                              padding: const EdgeInsets.symmetric(vertical: 12),
                                                             ),
                                                             onPressed: () {
                                                               _unlikeaproduct(
@@ -407,24 +396,10 @@ class DetailProduct extends StatelessWidget {
                                                       return Expanded(
                                                         flex: 1,
                                                         child: ElevatedButton(
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              side: const BorderSide(
-                                                                  color: Color(
-                                                                      0xFF9586A8)),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8)),
-                                                              primary:
-                                                                  Colors.white,
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .symmetric(
-                                                                      vertical:
-                                                                          12),
+                                                            style: ElevatedButton.styleFrom(side: const BorderSide(color: Color(0xFF9586A8)),
+                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                              primary: Colors.white,
+                                                              padding: const EdgeInsets.symmetric(vertical: 12),
                                                             ),
                                                             onPressed: () {
                                                               _likeaproduct(
@@ -432,8 +407,7 @@ class DetailProduct extends StatelessWidget {
                                                             },
                                                             child: const Icon(
                                                               Icons.favorite,
-                                                              color: Color(
-                                                                  0xFF9586A8),
+                                                              color: Color(0xFF9586A8),
                                                               size: 24,
                                                             )),
                                                       );

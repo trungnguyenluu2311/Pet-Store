@@ -62,4 +62,15 @@ class ProductController extends GetxController {
     _productService.fetchProduct(id);
     return dSnapStream;
   }
+  // cmt
+
+  Future<void> addCmt(String id,String content) async {
+    await _productService.Addcmt(id,content);
+  }
+
+  Stream<QuerySnapshot> fetchCmt(String id) {
+    Stream<QuerySnapshot> qSnapStream =
+    _productService.fetchCmt(id);
+    return qSnapStream;
+  }
 }
