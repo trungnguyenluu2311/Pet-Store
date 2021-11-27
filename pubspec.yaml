@@ -42,7 +42,7 @@ dependencies:
   image_picker:
   get:
   intl:
-
+  comment_box: ^0.0.16
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,3 +1,4 @@
+import 'package:flutter_project/screens/comment_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_project/controllers/auth_controller.dart';
 import 'package:flutter_project/controllers/product_controller.dart';
@@ -33,12 +34,17 @@ class DetailProduct extends StatelessWidget {
                       width: Get.width,
                       height: Get.height,
                       child: Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Image.network(product.pathImage),
+                              Center(
+                                child: Image(
+                                    fit: BoxFit.cover,
+                                    height: 260,
+                                    width: 260,
+                                    image: NetworkImage(product.pathImage)),
+                              )
                             ],
                           ),
                           Column(children: [
@@ -48,10 +54,12 @@ class DetailProduct extends StatelessWidget {
                               child: Container(
                                   width: Get.width,
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 36, horizontal: 24),
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFFAF9FE),
-                                      borderRadius: BorderRadius.only(
+                                      vertical: 24, horizontal: 24),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFFAF9FE),
+                                      border: Border.all(
+                                          color: const Color(0xFFD9D0E3)),
+                                      borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(30),
                                           topRight: Radius.circular(30))),
                                   child: Column(
@@ -68,74 +76,101 @@ class DetailProduct extends StatelessWidget {
                                             fontWeight: FontWeight.w700),
                                       ),
                                       const SizedBox(height: 12),
-                                      int.parse(product.discount) == 0 ?
-                                      RichText(
-                                        text: TextSpan(
-                                            text: formatter.format(double.parse(product.price)),
-                                            style: const TextStyle(
-                                                color: Color(0xFF2D0C57),
-                                                fontFamily: 'RedHatDisplay',
-                                                fontSize: 32,
-                                                fontWeight: FontWeight.w700),
-                                            children: const [
-                                              TextSpan(
-                                                  text: ' vnđ',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF9586A8),
+                                      int.parse(product.discount) == 0
+                                          ? RichText(
+                                              text: TextSpan(
+                                                  text: formatter.format(
+                                                      double.parse(
+                                                          product.price)),
+                                                  style: const TextStyle(
+                                                      color: Color(0xFF2D0C57),
+                                                      fontFamily:
+                                                          'RedHatDisplay',
+                                                      fontSize: 32,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                  children: const [
+                                                    TextSpan(
+                                                        text: ' vnđ',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF9586A8),
+                                                            fontSize: 24,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400))
+                                                  ]),
+                                            )
+                                          : RichText(
+                                              text: TextSpan(
+                                                  text: formatter.format((double
+                                                          .parse(
+                                                              product.price) -
+                                                      (double.parse(product
+                                                              .discount) /
+                                                          100 *
+                                                          double.parse(
+                                                              product.price)))),
+                                                  style: const TextStyle(
+                                                      color: Color(0xFF2D0C57),
+                                                      fontFamily:
+                                                          'RedHatDisplay',
                                                       fontSize: 24,
-                                                      fontWeight: FontWeight.w400))
-                                            ]),
-                                      ) : RichText(
-                                        text: TextSpan(
-                                            text: formatter.format((double.parse(product
-                                                .price) - (double.parse(product.discount) / 100 * double
-                                                .parse(product.price)))),
-                                            style: const TextStyle(
-                                                color: Color(0xFF2D0C57),
-                                                fontFamily: 'RedHatDisplay',
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w700),
-                                            children: const [
-                                              TextSpan(
-                                                  text: ' vnđ',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF9586A8),
-                                                      fontSize: 24,
-                                                      fontWeight: FontWeight.w400))
-                                            ]),
-                                      ),
-                                      int.parse(product.discount) == 0 ?
-                                      RichText(
-                                        text: const TextSpan(
-                                          text: "",
-                                          style: TextStyle(
-                                              color: Color(0xFF9586A8),
-                                              fontFamily: 'RedHatDisplay',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-
-                                      ) : RichText(
-                                        text: TextSpan(
-                                          text: formatter.format(double.parse(product.price)),
-                                          style: const TextStyle(
-                                              decoration: TextDecoration.lineThrough,
-                                              color: Color(0xFF9586A8),
-                                              fontFamily: 'RedHatDisplay',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700),
-                                          children: const [
-                                            TextSpan(
-                                                text: ' vnđ',
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                  children: const [
+                                                    TextSpan(
+                                                        text: ' vnđ',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF9586A8),
+                                                            fontSize: 24,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400))
+                                                  ]),
+                                            ),
+                                      int.parse(product.discount) == 0
+                                          ? RichText(
+                                              text: const TextSpan(
+                                                text: "",
                                                 style: TextStyle(
-                                                    decoration: TextDecoration.lineThrough,
                                                     color: Color(0xFF9586A8),
+                                                    fontFamily: 'RedHatDisplay',
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.w400))
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 30),
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              ),
+                                            )
+                                          : RichText(
+                                              text: TextSpan(
+                                                text: formatter.format(
+                                                    double.parse(
+                                                        product.price)),
+                                                style: const TextStyle(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                    color: Color(0xFF9586A8),
+                                                    fontFamily: 'RedHatDisplay',
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                                children: const [
+                                                  TextSpan(
+                                                      text: ' vnđ',
+                                                      style: TextStyle(
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                          color:
+                                                              Color(0xFF9586A8),
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400))
+                                                ],
+                                              ),
+                                            ),
+                                      const SizedBox(height: 24),
                                       Expanded(
                                         child: PageView(
                                           pageSnapping: true,
@@ -154,7 +189,7 @@ class DetailProduct extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.w700),
                                                 ),
-                                                SizedBox(height: 24),
+                                                const SizedBox(height: 24),
                                                 Expanded(
                                                   child: SingleChildScrollView(
                                                     child: Text(
@@ -224,17 +259,6 @@ class DetailProduct extends StatelessWidget {
                                                           fontWeight:
                                                               FontWeight.w700),
                                                     ),
-                                                    Text(
-                                                      'Đánh giá trung bình: 4.5',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Color(0xFF2D0C57),
-                                                          fontFamily:
-                                                              'RedHatDisplay',
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    )
                                                   ],
                                                 ),
                                                 const SizedBox(height: 12),
@@ -289,7 +313,10 @@ class DetailProduct extends StatelessWidget {
                                                       ],
                                                     ),
                                                     ElevatedButton(
-                                                        onPressed: () {},
+                                                        onPressed: () {
+                                                          Get.to(() =>
+                                                              CommentScreen());
+                                                        },
                                                         style: ElevatedButton
                                                             .styleFrom(
                                                                 primary:
@@ -314,120 +341,177 @@ class DetailProduct extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(height: 60),
+                                      const SizedBox(height: 24),
                                       Row(
                                         children: [
                                           GetBuilder<AuthController>(
-                                            builder: (_) => StreamBuilder<DocumentSnapshot>(
-                                              stream: Get.find<AuthController>().fetchFavProduct(productId),
-                                              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                                  return Center(child: CircularProgressIndicator());
-                                                }
-                                                if (snapshot.hasError) {
-                                                  return Center(child: Text(snapshot.error.toString()));
-                                                }
-                                                if(snapshot.data!.exists){
-                                                  return Expanded(
-                                                    flex: 1,
-                                                    child: ElevatedButton(
-                                                        style: ElevatedButton.styleFrom(
-                                                          side: const BorderSide(
-                                                              color: Color(0xFF9586A8)),
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  8)),
-                                                          primary: Colors.white,
-                                                          padding: const EdgeInsets
-                                                              .symmetric(vertical: 12),
-                                                        ),
-                                                        onPressed: () {
-                                                          _unlikeaproduct(product);
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.red,
-                                                          size: 24,
-                                                        )),
-                                                  );
-                                                }
-                                                else{
-                                                  return Expanded(
-                                                    flex: 1,
-                                                    child: ElevatedButton(
-                                                        style: ElevatedButton.styleFrom(
-                                                          side: const BorderSide(
-                                                              color: Color(0xFF9586A8)),
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  8)),
-                                                          primary: Colors.white,
-                                                          padding: const EdgeInsets
-                                                              .symmetric(vertical: 12),
-                                                        ),
-                                                        onPressed: () {
-                                                          _likeaproduct(product);
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.favorite,
-                                                          color: Color(0xFF9586A8),
-                                                          size: 24,
-                                                        )),
-                                                  );
-                                                }
-                                              }
-                                            )
-                                          ),
-                                          const SizedBox(width: 12),
-                                          GetBuilder<ProductController>(
-                                              builder: (_) => StreamBuilder<DocumentSnapshot>(
-                                                  stream: Get.find<ProductController>().fetchProduct(productId),
-                                                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                                                    if (snapshot.connectionState == ConnectionState.waiting) {
-                                                      return Center(child: CircularProgressIndicator());
+                                              builder: (_) => StreamBuilder<
+                                                      DocumentSnapshot>(
+                                                  stream:
+                                                      Get.find<AuthController>()
+                                                          .fetchFavProduct(
+                                                              productId),
+                                                  builder: (context,
+                                                      AsyncSnapshot<
+                                                              DocumentSnapshot>
+                                                          snapshot) {
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return Center(
+                                                          child:
+                                                              CircularProgressIndicator());
                                                     }
                                                     if (snapshot.hasError) {
-                                                      return Center(child: Text(snapshot.error.toString()));
+                                                      return Center(
+                                                          child: Text(snapshot
+                                                              .error
+                                                              .toString()));
                                                     }
-                                                    if(snapshot.data!.exists){
-                                                      final Product product = Product.fromDocumentSnapshot(documentSnapshot: snapshot.data!);
-                                                      if (int.parse(product.quantum!) == 0) {
+                                                    if (snapshot.data!.exists) {
+                                                      return Expanded(
+                                                        flex: 1,
+                                                        child: ElevatedButton(
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              side: const BorderSide(
+                                                                  color: Color(
+                                                                      0xFF7203FF)),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8)),
+                                                              primary:
+                                                                  Colors.white,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12),
+                                                            ),
+                                                            onPressed: () {
+                                                              _unlikeaproduct(
+                                                                  product);
+                                                            },
+                                                            child: const Icon(
+                                                              Icons.favorite,
+                                                              color: Color(
+                                                                  0xFF7203FF),
+                                                              size: 24,
+                                                            )),
+                                                      );
+                                                    } else {
+                                                      return Expanded(
+                                                        flex: 1,
+                                                        child: ElevatedButton(
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              side: const BorderSide(
+                                                                  color: Color(
+                                                                      0xFF9586A8)),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8)),
+                                                              primary:
+                                                                  Colors.white,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12),
+                                                            ),
+                                                            onPressed: () {
+                                                              _likeaproduct(
+                                                                  product);
+                                                            },
+                                                            child: const Icon(
+                                                              Icons.favorite,
+                                                              color: Color(
+                                                                  0xFF9586A8),
+                                                              size: 24,
+                                                            )),
+                                                      );
+                                                    }
+                                                  })),
+                                          const SizedBox(width: 12),
+                                          GetBuilder<ProductController>(
+                                              builder: (_) => StreamBuilder<
+                                                      DocumentSnapshot>(
+                                                  stream: Get.find<
+                                                          ProductController>()
+                                                      .fetchProduct(productId),
+                                                  builder: (context,
+                                                      AsyncSnapshot<
+                                                              DocumentSnapshot>
+                                                          snapshot) {
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return Center(
+                                                          child:
+                                                              CircularProgressIndicator());
+                                                    }
+                                                    if (snapshot.hasError) {
+                                                      return Center(
+                                                          child: Text(snapshot
+                                                              .error
+                                                              .toString()));
+                                                    }
+                                                    if (snapshot.data!.exists) {
+                                                      final Product product = Product
+                                                          .fromDocumentSnapshot(
+                                                              documentSnapshot:
+                                                                  snapshot
+                                                                      .data!);
+                                                      if (int.parse(product
+                                                              .quantum!) ==
+                                                          0) {
                                                         return Expanded(
                                                           flex: 3,
                                                           child: ElevatedButton(
                                                               style: ElevatedButton.styleFrom(
-                                                                  shape:
-                                                                  RoundedRectangleBorder(
+                                                                  shape: RoundedRectangleBorder(
                                                                       borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          8)),
-                                                                  primary:
-                                                                  const Color(0xFF0BCE83),
+                                                                          BorderRadius.circular(
+                                                                              8)),
+                                                                  primary: const Color(
+                                                                      0xFF0BCE83),
                                                                   padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      vertical: 12)),
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12)),
                                                               onPressed: null,
                                                               child: Row(
                                                                 mainAxisAlignment:
-                                                                MainAxisAlignment.center,
+                                                                    MainAxisAlignment
+                                                                        .center,
                                                                 children: const [
                                                                   Icon(
                                                                     Icons
                                                                         .shopping_cart_outlined,
                                                                     size: 24,
-                                                                    color: Colors.white,
+                                                                    color: Colors
+                                                                        .white,
                                                                   ),
-                                                                  SizedBox(width: 12),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          12),
                                                                   Text(
                                                                     'ĐÃ BÁN HẾT',
                                                                     style: TextStyle(
-                                                                        color: Colors.white,
-                                                                        fontSize: 16,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16,
                                                                         fontWeight:
-                                                                        FontWeight.w700),
+                                                                            FontWeight.w700),
                                                                   ),
                                                                 ],
                                                               )),
@@ -437,88 +521,97 @@ class DetailProduct extends StatelessWidget {
                                                           flex: 3,
                                                           child: ElevatedButton(
                                                               style: ElevatedButton.styleFrom(
-                                                                  shape:
-                                                                  RoundedRectangleBorder(
+                                                                  shape: RoundedRectangleBorder(
                                                                       borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          8)),
-                                                                  primary:
-                                                                  const Color(0xFF0BCE83),
+                                                                          BorderRadius.circular(
+                                                                              8)),
+                                                                  primary: const Color(
+                                                                      0xFF0BCE83),
                                                                   padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      vertical: 12)),
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12)),
                                                               onPressed: () {
-                                                                Get.find<AuthController>()
+                                                                Get.find<
+                                                                        AuthController>()
                                                                     .addProductToCart(
-                                                                    product);
+                                                                        product);
                                                               },
                                                               child: Row(
                                                                 mainAxisAlignment:
-                                                                MainAxisAlignment.center,
+                                                                    MainAxisAlignment
+                                                                        .center,
                                                                 children: const [
                                                                   Icon(
                                                                     Icons
                                                                         .shopping_cart_outlined,
                                                                     size: 24,
-                                                                    color: Colors.white,
+                                                                    color: Colors
+                                                                        .white,
                                                                   ),
-                                                                  SizedBox(width: 12),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          12),
                                                                   Text(
                                                                     'THÊM VÀO GIỎ HÀNG',
                                                                     style: TextStyle(
-                                                                        color: Colors.white,
-                                                                        fontSize: 16,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16,
                                                                         fontWeight:
-                                                                        FontWeight.w700),
+                                                                            FontWeight.w700),
                                                                   ),
                                                                 ],
                                                               )),
                                                         );
                                                       }
-                                                    }
-                                                    else{
+                                                    } else {
                                                       return Expanded(
                                                         flex: 3,
                                                         child: ElevatedButton(
                                                             style: ElevatedButton.styleFrom(
-                                                                shape:
-                                                                RoundedRectangleBorder(
+                                                                shape: RoundedRectangleBorder(
                                                                     borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                        8)),
-                                                                primary:
-                                                                const Color(0xFF0BCE83),
+                                                                        BorderRadius.circular(
+                                                                            8)),
+                                                                primary: const Color(
+                                                                    0xFF0BCE83),
                                                                 padding: const EdgeInsets
-                                                                    .symmetric(
-                                                                    vertical: 12)),
+                                                                        .symmetric(
+                                                                    vertical:
+                                                                        12)),
                                                             onPressed: null,
                                                             child: Row(
                                                               mainAxisAlignment:
-                                                              MainAxisAlignment.center,
+                                                                  MainAxisAlignment
+                                                                      .center,
                                                               children: const [
                                                                 Icon(
                                                                   Icons
                                                                       .shopping_cart_outlined,
                                                                   size: 24,
-                                                                  color: Colors.white,
+                                                                  color: Colors
+                                                                      .white,
                                                                 ),
-                                                                SizedBox(width: 12),
+                                                                SizedBox(
+                                                                    width: 12),
                                                                 Text(
                                                                   'ĐÃ BỊ XÓA',
                                                                   style: TextStyle(
-                                                                      color: Colors.white,
-                                                                      fontSize: 16,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          16,
                                                                       fontWeight:
-                                                                      FontWeight.w700),
+                                                                          FontWeight
+                                                                              .w700),
                                                                 ),
                                                               ],
                                                             )),
                                                       );
                                                     }
-                                                  })
-                                          ),
+                                                  })),
                                         ],
                                       )
                                     ],
@@ -547,10 +640,10 @@ class DetailProduct extends StatelessWidget {
   }
 }
 
-void _likeaproduct(Product product){
+void _likeaproduct(Product product) {
   Get.find<AuthController>().LikeAProduct(product);
 }
 
-void _unlikeaproduct(Product product){
+void _unlikeaproduct(Product product) {
   Get.find<AuthController>().UnlikeAProduct(product);
 }
