@@ -77,34 +77,37 @@ class HomeScreen extends GetWidget<ProductController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 6, horizontal: 12),
                           decoration: BoxDecoration(
-                              color: controller.tagIndex == 1 ? const Color(0xFFE2CBFF): Colors.white,
+                              color: controller.tagIndex == 1
+                                  ? const Color(0xFFE2CBFF)
+                                  : Colors.white,
                               border: Border.all(
                                 color: const Color(0xFFD9D0E3),
                               ),
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(30))),
+                                  const BorderRadius.all(Radius.circular(30))),
                           child: GestureDetector(
                             onTap: () {
-                              if(controller.tagIndex == 1){
-                                streamQuery =
-                                    Get.find<ProductController>().fetchProducts();
+                              if (controller.tagIndex == 1) {
+                                streamQuery = Get.find<ProductController>()
+                                    .fetchProducts();
                                 controller.changeTagIndex(0);
-                              }
-                              else{
-                                streamQuery =
-                                    Get.find<ProductController>().fetchProductsFood();
+                              } else {
+                                streamQuery = Get.find<ProductController>()
+                                    .fetchProductsFood();
                                 controller.changeTagIndex(1);
                               }
                             },
                             child: RichText(
                               text: TextSpan(
-                                  text: 'Thức ăn',
-                                  style: TextStyle(
-                                      color: controller.tagIndex == 1 ? const Color(0xFF6C0EE4): const Color(0xFF9586A8),
-                                      fontSize: 14,
-                                      fontFamily: 'RedHatDisplay',
-                                      fontWeight: FontWeight.w500),
-                                  ),
+                                text: 'Thức ăn',
+                                style: TextStyle(
+                                    color: controller.tagIndex == 1
+                                        ? const Color(0xFF6C0EE4)
+                                        : const Color(0xFF9586A8),
+                                    fontSize: 14,
+                                    fontFamily: 'RedHatDisplay',
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
                         ),
@@ -113,35 +116,38 @@ class HomeScreen extends GetWidget<ProductController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 6, horizontal: 12),
                           decoration: BoxDecoration(
-                            color: controller.tagIndex == 2 ? const Color(0xFFE2CBFF): Colors.white,
+                            color: controller.tagIndex == 2
+                                ? const Color(0xFFE2CBFF)
+                                : Colors.white,
                             border: Border.all(
                               color: const Color(0xFFD9D0E3),
                             ),
                             borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
+                                const BorderRadius.all(Radius.circular(30)),
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              if(controller.tagIndex == 2){
-                                streamQuery =
-                                    Get.find<ProductController>().fetchProducts();
+                              if (controller.tagIndex == 2) {
+                                streamQuery = Get.find<ProductController>()
+                                    .fetchProducts();
                                 controller.changeTagIndex(0);
-                              }
-                              else{
-                                streamQuery =
-                                    Get.find<ProductController>().fetchProductsMedic();
+                              } else {
+                                streamQuery = Get.find<ProductController>()
+                                    .fetchProductsMedic();
                                 controller.changeTagIndex(2);
                               }
                             },
                             child: RichText(
                               text: TextSpan(
-                                  text: 'Thuốc',
-                                  style: TextStyle(
-                                      color: controller.tagIndex == 2 ? const Color(0xFF6C0EE4): const Color(0xFF9586A8),
-                                      fontSize: 14,
-                                      fontFamily: 'RedHatDisplay',
-                                      fontWeight: FontWeight.w500),
-                                  ),
+                                text: 'Thuốc',
+                                style: TextStyle(
+                                    color: controller.tagIndex == 2
+                                        ? const Color(0xFF6C0EE4)
+                                        : const Color(0xFF9586A8),
+                                    fontSize: 14,
+                                    fontFamily: 'RedHatDisplay',
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
                         ),
@@ -150,35 +156,38 @@ class HomeScreen extends GetWidget<ProductController> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 6, horizontal: 12),
                           decoration: BoxDecoration(
-                            color: controller.tagIndex == 3 ? const Color(0xFFE2CBFF): Colors.white,
+                            color: controller.tagIndex == 3
+                                ? const Color(0xFFE2CBFF)
+                                : Colors.white,
                             border: Border.all(
                               color: const Color(0xFFD9D0E3),
                             ),
                             borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
+                                const BorderRadius.all(Radius.circular(30)),
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              if(controller.tagIndex == 3){
-                                streamQuery =
-                                    Get.find<ProductController>().fetchProducts();
+                              if (controller.tagIndex == 3) {
+                                streamQuery = Get.find<ProductController>()
+                                    .fetchProducts();
                                 controller.changeTagIndex(0);
-                              }
-                              else{
-                                streamQuery =
-                                    Get.find<ProductController>().fetchProductsToy();
+                              } else {
+                                streamQuery = Get.find<ProductController>()
+                                    .fetchProductsToy();
                                 controller.changeTagIndex(3);
                               }
                             },
                             child: RichText(
                               text: TextSpan(
-                                  text: 'Đồ chơi',
-                                  style: TextStyle(
-                                      color: controller.tagIndex == 3 ? const Color(0xFF6C0EE4): const Color(0xFF9586A8),
-                                      fontSize: 14,
-                                      fontFamily: 'RedHatDisplay',
-                                      fontWeight: FontWeight.w500),
-                                  ),
+                                text: 'Đồ chơi',
+                                style: TextStyle(
+                                    color: controller.tagIndex == 3
+                                        ? const Color(0xFF6C0EE4)
+                                        : const Color(0xFF9586A8),
+                                    fontSize: 14,
+                                    fontFamily: 'RedHatDisplay',
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
                         ),
@@ -201,17 +210,12 @@ class HomeScreen extends GetWidget<ProductController> {
               QuerySnapshot querySnapshot = stream.data!;
               return SingleChildScrollView(
                 child: Container(
-                  color: Color(0xFFFAF9FE),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 24),
+                  color: const Color(0xFFFAF9FE),
+                  padding: const EdgeInsets.all(12),
                   child: Column(children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // const SizedBox(height: 12),
-                        // const SizedBox(height: 36),
-
-                        const SizedBox(height: 6),
                         ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
@@ -247,162 +251,182 @@ GestureDetector products(Product product) {
     onTap: () {
       _changetodetail(product.id!);
     },
-    child: SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          color: const Color(0xFFFAF9FE),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image(
-                      fit: BoxFit.cover,
-                      height: 132,
-                      width: 174,
-                      image: NetworkImage(product.pathImage))),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        color: Color(0xFF2D0C57),
-                        fontFamily: 'RedHatDisplay',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(height: 12),
-                  int.parse(product.discount) == 0 ?
-                  RichText(
-                    text: TextSpan(
-                        text: formatter.format(double.parse(product.price)),
+    child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        color: const Color(0xFFFAF9FE),
+        child: SizedBox(
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image(
+                        fit: BoxFit.cover,
+                        height: 168,
+                        width: 168,
+                        image: NetworkImage(product.pathImage))),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
                         style: const TextStyle(
                             color: Color(0xFF2D0C57),
                             fontFamily: 'RedHatDisplay',
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700),
-                        children: const [
-                          TextSpan(
-                              text: ' vnđ',
-                              style: TextStyle(
-                                  color: Color(0xFF9586A8),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400))
-                        ]),
-                  ) : RichText(
-                    text: TextSpan(
-                        text: formatter.format((double.parse(product
-                            .price) - (double.parse(product.discount) / 100 * double
-                            .parse(product.price)))),
-                        style: const TextStyle(
-                            color: Color(0xFF2D0C57),
-                            fontFamily: 'RedHatDisplay',
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700),
-                        children: const [
-                          TextSpan(
-                              text: ' vnđ',
-                              style: TextStyle(
-                                  color: Color(0xFF9586A8),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400))
-                        ]),
-                  ),
-                  int.parse(product.discount) == 0 ?
-                  RichText(
-                    text: const TextSpan(
-                        text: "",
-                        style: TextStyle(
-                            color: Color(0xFF9586A8),
-                            fontFamily: 'RedHatDisplay',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                        ),
-
-                  ) : RichText(
-                    text: TextSpan(
-                      text: formatter.format(double.parse(product.price)),
-                      style: const TextStyle(
-                          decoration: TextDecoration.lineThrough,
-                          color: Color(0xFF9586A8),
-                          fontFamily: 'RedHatDisplay',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700),
-                    children: const [
-                    TextSpan(
-                    text: ' vnđ',
-                        style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Color(0xFF9586A8),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400))
+                      ),
+                      const SizedBox(height: 12),
+                      int.parse(product.discount) == 0
+                          ? RichText(
+                              text: TextSpan(
+                                  text: formatter
+                                      .format(double.parse(product.price)),
+                                  style: const TextStyle(
+                                      color: Color(0xFF2D0C57),
+                                      fontFamily: 'RedHatDisplay',
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700),
+                                  children: const [
+                                    TextSpan(
+                                        text: ' vnđ',
+                                        style: TextStyle(
+                                            color: Color(0xFF9586A8),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400))
+                                  ]),
+                            )
+                          : RichText(
+                              text: TextSpan(
+                                  text: formatter.format(
+                                      (double.parse(product.price) -
+                                          (double.parse(product.discount) /
+                                              100 *
+                                              double.parse(product.price)))),
+                                  style: const TextStyle(
+                                      color: Color(0xFF2D0C57),
+                                      fontFamily: 'RedHatDisplay',
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700),
+                                  children: const [
+                                    TextSpan(
+                                        text: ' vnđ',
+                                        style: TextStyle(
+                                            color: Color(0xFF9586A8),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400))
+                                  ]),
+                            ),
+                      int.parse(product.discount) == 0
+                          ? RichText(
+                              text: const TextSpan(
+                                text: "",
+                                style: TextStyle(
+                                    color: Color(0xFF9586A8),
+                                    fontFamily: 'RedHatDisplay',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            )
+                          : RichText(
+                              text: TextSpan(
+                                text: formatter
+                                    .format(double.parse(product.price)),
+                                style: const TextStyle(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: Color(0xFF9586A8),
+                                    fontFamily: 'RedHatDisplay',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700),
+                                children: const [
+                                  TextSpan(
+                                      text: ' vnđ',
+                                      style: TextStyle(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          color: Color(0xFF9586A8),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400))
+                                ],
+                              ),
+                            ),
+                      const Expanded(child: SizedBox()),
+                      GetBuilder<ProductController>(
+                          builder: (_) => StreamBuilder<DocumentSnapshot>(
+                              stream: Get.find<ProductController>()
+                                  .fetchProduct(product.id!),
+                              builder: (context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasError) {
+                                  return Center(
+                                      child: Text(snapshot.error.toString()));
+                                }
+                                if (snapshot.data!.exists) {
+                                  final Product product =
+                                      Product.fromDocumentSnapshot(
+                                          documentSnapshot: snapshot.data!);
+                                  if (int.parse(product.quantum!) == 0) {
+                                    return SizedBox(
+                                      width: 176,
+                                      child: ElevatedButton(
+                                          onPressed: null,
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            primary: const Color(0xFF0BCE83),
+                                          ),
+                                          child: const Icon(
+                                              Icons.shopping_cart_outlined)),
+                                    );
+                                  } else {
+                                    return SizedBox(
+                                      width: 176,
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.find<AuthController>()
+                                                .addProductToCart(product);
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            primary: const Color(0xFF0BCE83),
+                                          ),
+                                          child: const Icon(
+                                              Icons.shopping_cart_outlined)),
+                                    );
+                                  }
+                                } else {
+                                  return SizedBox(
+                                    width: 176,
+                                    child: ElevatedButton(
+                                        onPressed: null,
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          primary: const Color(0xFF0BCE83),
+                                        ),
+                                        child: const Icon(
+                                            Icons.shopping_cart_outlined)),
+                                  );
+                                }
+                              })),
                     ],
-                    ),
                   ),
-                  const SizedBox(height: 12),
-                  GetBuilder<ProductController>(
-                      builder: (_) => StreamBuilder<DocumentSnapshot>(
-                          stream: Get.find<ProductController>().fetchProduct(product.id!),
-                          builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(child: CircularProgressIndicator());
-                            }
-                            if (snapshot.hasError) {
-                              return Center(child: Text(snapshot.error.toString()));
-                            }
-                            if(snapshot.data!.exists){
-                              final Product product = Product.fromDocumentSnapshot(documentSnapshot: snapshot.data!);
-                              if (int.parse(product.quantum!) == 0) {
-                                return SizedBox(
-                                  width: 176,
-                                  child: ElevatedButton(
-                                      onPressed: null,
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8)),
-                                        primary: const Color(0xFF0BCE83),
-                                      ),
-                                      child: const Icon(Icons.shopping_cart_outlined)),
-                                );
-                              } else {
-                                return SizedBox(
-                                  width: 176,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        Get.find<AuthController>().addProductToCart(product);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8)),
-                                        primary: const Color(0xFF0BCE83),
-                                      ),
-                                      child: const Icon(Icons.shopping_cart_outlined)),
-                                );
-                              }
-                            }
-                            else{
-                              return SizedBox(
-                                width: 176,
-                                child: ElevatedButton(
-                                    onPressed: null,
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8)),
-                                      primary: const Color(0xFF0BCE83),
-                                    ),
-                                    child: const Icon(Icons.shopping_cart_outlined)),
-                              );
-                            }
-                          })
-                  ),
-                ],
-              )
-            ],
-          )),
-    ),
+                )
+              ],
+            ),
+          ),
+        )),
   );
 }
