@@ -71,31 +71,63 @@ Container transaction(OrderModel orderModel) {
 
   return Container(
     width: Get.width * 0.94,
-    child: Card(
-      elevation: 0.5,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: const BorderSide(color: Color(0xFFD9D0E3))),
-      color: Colors.white,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: boxDetail(),
-              ),
-              Container(
-                width: Get.width * 0.9,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Row(
-                    children: [
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Card(
+        elevation: 0.5,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: const BorderSide(color: Color(0xFFD9D0E3))
+        ),
+        color: Colors.white,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: boxDetail(),
+                ),
+                Container(
+                  width: Get.width * 0.9,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          child: Text(
+                            'Mã đơn hàng:',
+                            style: TextStyle(
+                              color: Color(0xFF2D0C57),
+                              fontSize: 18,
+                              fontFamily: 'RedHatDisplay',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '${orderModel.dateTimeOrder}',
+                          style: const TextStyle(
+                            color: Color(0xFF9586A8),
+                            fontSize: 16,
+                            fontFamily: 'RedHatDisplay',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: Get.width * 0.9,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Row(children: [
                       const Expanded(
                         child: Text(
-                          'Mã đơn hàng:',
+                          'Ngày:',
                           style: TextStyle(
                             color: Color(0xFF2D0C57),
                             fontSize: 18,
@@ -105,7 +137,7 @@ Container transaction(OrderModel orderModel) {
                         ),
                       ),
                       Text(
-                        '${orderModel.dateTimeOrder}',
+                        formattedDate,
                         style: const TextStyle(
                           color: Color(0xFF9586A8),
                           fontSize: 16,
@@ -113,97 +145,69 @@ Container transaction(OrderModel orderModel) {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ],
+                    ]),
                   ),
                 ),
-              ),
-              Container(
-                width: Get.width * 0.9,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  child: Row(children: [
-                    const Expanded(
-                      child: Text(
-                        'Ngày:',
-                        style: TextStyle(
-                          color: Color(0xFF2D0C57),
-                          fontSize: 18,
-                          fontFamily: 'RedHatDisplay',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      formattedDate,
-                      style: const TextStyle(
-                        color: Color(0xFF9586A8),
-                        fontSize: 16,
-                        fontFamily: 'RedHatDisplay',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ]),
-                ),
-              ),
-              Container(
-                width: Get.width * 0.9,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  child: Row(children: [
-                    const Expanded(
-                      child: Text(
-                        'Tên người nhận:',
-                        style: TextStyle(
-                          color: Color(0xFF2D0C57),
-                          fontSize: 18,
-                          fontFamily: 'RedHatDisplay',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      orderModel.nameUser,
-                      style: const TextStyle(
-                        color: Color(0xFF9586A8),
-                        fontSize: 16,
-                        fontFamily: 'RedHatDisplay',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ]),
-                ),
-              ),
-              Container(
-                width: Get.width * 0.9,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                Container(
+                  width: Get.width * 0.9,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Row(children: [
                       const Expanded(
-                        child: Text("Tổng tiền: ",
-                            style: TextStyle(
-                              color: Color(0xFF2D0C57),
-                              fontSize: 18,
+                        child: Text(
+                          'Tên người nhận:',
+                          style: TextStyle(
+                            color: Color(0xFF2D0C57),
+                            fontSize: 18,
+                            fontFamily: 'RedHatDisplay',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        orderModel.nameUser,
+                        style: const TextStyle(
+                          color: Color(0xFF9586A8),
+                          fontSize: 16,
+                          fontFamily: 'RedHatDisplay',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+                Container(
+                  width: Get.width * 0.9,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Expanded(
+                          child: Text("Tổng tiền: ",
+                              style: TextStyle(
+                                color: Color(0xFF2D0C57),
+                                fontSize: 18,
+                                fontFamily: 'RedHatDisplay',
+                                fontWeight: FontWeight.w500,
+                              )),
+                        ),
+                        Text(
+                            "${formatter.format(double.parse(orderModel.totals))} vnđ",
+                            style: const TextStyle(
+                              color: Color(0xFF9586A8),
+                              fontSize: 16,
                               fontFamily: 'RedHatDisplay',
                               fontWeight: FontWeight.w500,
                             )),
-                      ),
-                      Text(
-                          "${formatter.format(double.parse(orderModel.totals))} vnđ",
-                          style: const TextStyle(
-                            color: Color(0xFF9586A8),
-                            fontSize: 16,
-                            fontFamily: 'RedHatDisplay',
-                            fontWeight: FontWeight.w500,
-                          )),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     ),
   );

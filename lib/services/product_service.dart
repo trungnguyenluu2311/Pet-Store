@@ -10,36 +10,53 @@ import 'package:intl/intl.dart';
 class ProductService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _firestorage = FirebaseStorage.instance;
+
   //cmt
   final FirebaseAuth _fireAuth = FirebaseAuth.instance;
+
   //
   Stream<QuerySnapshot> fetchProducts() {
     return _firestore.collection("products").snapshots();
   }
 
   Stream<QuerySnapshot> fetchProductsFood() {
-    return _firestore.collection("products").where('tag',isEqualTo:"food").snapshots();
+    return _firestore
+        .collection("products")
+        .where('tag', isEqualTo: "food")
+        .snapshots();
   }
 
   Stream<QuerySnapshot> fetchProductsToy() {
-    return _firestore.collection("products").where('tag',isEqualTo:"toy").snapshots();
+    return _firestore
+        .collection("products")
+        .where('tag', isEqualTo: "toy")
+        .snapshots();
   }
 
   Stream<QuerySnapshot> fetchProductsMedic() {
-    return _firestore.collection("products").where('tag',isEqualTo:"medic").snapshots();
+    return _firestore
+        .collection("products")
+        .where('tag', isEqualTo: "medic")
+        .snapshots();
   }
 
   Stream<QuerySnapshot> searchProducts(String nameProduct) {
-    return _firestore.collection("products").orderBy("namelowercase").startAt([nameProduct]).endAt([nameProduct + '\uf8ff']).snapshots();
+    return _firestore
+        .collection("products")
+        .orderBy("namelowercase")
+        .startAt([nameProduct]).endAt([nameProduct + '\uf8ff']).snapshots();
   }
 
   Stream<DocumentSnapshot> fetchProduct(String productId) {
-    return _firestore.collection("products").doc(productId.toString()).snapshots();
+    return _firestore
+        .collection("products")
+        .doc(productId.toString())
+        .snapshots();
   }
 
-  int countPro(){
+  int countPro() {
     int temp = 0;
-    _firestore.collection("products").get().then((value){
+    _firestore.collection("products").get().then((value) {
       temp++;
     });
     print("$temp");
@@ -47,10 +64,18 @@ class ProductService {
   }
 
   //cmt
-  Future<void> Addcmt(String productId,String content) async {
-    final snapShot = await _firestore.collection("users").doc(_fireAuth.currentUser!.uid).get();
-    final UserModel user = UserModel.fromDocumentSnapshot(documentSnapshot: snapShot);
-    await _firestore.collection("products").doc(productId).collection("comments").add({
+  Future<void> Addcmt(String productId, String content) async {
+    final snapShot = await _firestore
+        .collection("users")
+        .doc(_fireAuth.currentUser!.uid)
+        .get();
+    final UserModel user =
+        UserModel.fromDocumentSnapshot(documentSnapshot: snapShot);
+    await _firestore
+        .collection("products")
+        .doc(productId)
+        .collection("comments")
+        .add({
       "name": user.name,
       "datetimecmt": DateTime.now().toUtc().millisecondsSinceEpoch,
       "content": content
@@ -58,7 +83,10 @@ class ProductService {
   }
 
   Stream<QuerySnapshot> fetchCmt(String productId) {
-    return _firestore.collection("products").doc(productId).collection("comments").snapshots();
+    return _firestore
+        .collection("products")
+        .doc(productId)
+        .collection("comments")
+        .snapshots();
   }
-
 }

@@ -5,6 +5,7 @@ import 'package:flutter_project/screens/user_info_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_project/models/user_model.dart';
 import 'package:flutter_project/models/product_model.dart';
+
 // import 'package:flutter_project/screens/notification_screen.dart';
 // import 'package:flutter_project/screens/payment_screen.dart';
 // import 'package:flutter_project/screens/search_screen.dart';
@@ -15,87 +16,69 @@ import 'package:flutter_project/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 import 'cart_screen.dart';
 
-
 class MainScreen extends GetWidget<UtilitiesController> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // late double totalstemp;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<UtilitiesController>(
-        builder: (controller){
-          return Scaffold(
-            key: _scaffoldKey,
-            body: GetBuilder<UtilitiesController>(
-              init: UtilitiesController(),
-              builder: (s) => IndexedStack(
-                index: controller.tabIndex,
-                children:[
-                  HomeScreen(),
-                  UserInfo(),
-                  CartScreen()
-                  /*UserInfo(),
+    return GetBuilder<UtilitiesController>(builder: (controller) {
+      return Scaffold(
+        key: _scaffoldKey,
+        body: GetBuilder<UtilitiesController>(
+          init: UtilitiesController(),
+          builder: (s) => IndexedStack(
+            index: controller.tabIndex,
+            children: [
+              HomeScreen(),
+              UserInfo(),
+              CartScreen()
+              /*UserInfo(),
                   CartScreen(),*/
-                ],
-              ),
-            ),
-            bottomNavigationBar: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFF8F8F8),
-                  border: Border(top: BorderSide(color: Color(0xFFD9D0E3)))
-              ),
-              child: BottomNavigationBar(
-                currentIndex: controller.tabIndex,
-                onTap: controller.changeTabIndex,
-                backgroundColor: Colors.white,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                iconSize: 24,
-                selectedItemColor: const Color(0xFF7203FF),
-                unselectedItemColor: const Color(0xFF9586A8),
-                type: BottomNavigationBarType.fixed,
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Icon(Icons.home_outlined),
-                      ),
-                      label: ''
-                  ),
-                  // BottomNavigationBarItem(
-                  //   icon: Icon(Icons.medical_services_outlined),
-                  //   label: ''
-                  // ),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person_outline),
-                      label: ''
-                  ),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.shopping_cart_outlined),
-                      label: ''
-                  ),
-                ],
-              ),
-            ),
-          );}
-    );
+            ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+              color: Color(0xFFF8F8F8),
+              border: Border(top: BorderSide(color: Color(0xFFD9D0E3)))),
+          child: BottomNavigationBar(
+            currentIndex: controller.tabIndex,
+            onTap: controller.changeTabIndex,
+            backgroundColor: Colors.white,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            iconSize: 24,
+            selectedItemColor: const Color(0xFF7203FF),
+            unselectedItemColor: const Color(0xFF9586A8),
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: ''),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.medical_services_outlined),
+              //   label: ''
+              // ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline), label: ''),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_outlined), label: ''),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
-  // void _payment() {
-  //   if(totalstemp == 0){
-  //     Get.snackbar("Thông báo", "Không có sản phẩm trong giỏ hàng");
-  //   }
-  //   else{
-  //     Get.to(()=>Payment());
-  //   }
-  // }
+// void _payment() {
+//   if(totalstemp == 0){
+//     Get.snackbar("Thông báo", "Không có sản phẩm trong giỏ hàng");
+//   }
+//   else{
+//     Get.to(()=>Payment());
+//   }
+// }
 }
-
-
-
-
-
-
-
 
 // class MainScreen extends StatefulWidget {
 //   const MainScreen({Key? key}) : super(key: key);

@@ -39,7 +39,9 @@ class HomeScreen extends GetWidget<ProductController> {
                 child: Column(
                   children: [
                     TextField(
-                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                      cursorColor: const Color(0xFF6C0EE4),
+                      style: const TextStyle(
+                          color: Color(0xFF9586A8), fontSize: 16),
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 12),
                         labelStyle: TextStyle(
