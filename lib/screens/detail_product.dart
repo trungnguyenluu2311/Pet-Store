@@ -242,7 +242,8 @@ class DetailProduct extends StatelessWidget {
                                             Column(
                                               children: [
                                                 Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
                                                   children: [
                                                     const Text(
                                                       'Tổng số bình luận : ',
@@ -255,41 +256,57 @@ class DetailProduct extends StatelessWidget {
                                                           fontWeight:
                                                               FontWeight.w700),
                                                     ),
-                                                    StreamBuilder<QuerySnapshot>(
-                                                        stream:  Get.find<ProductController>().fetchCmt(productId),
-                                                        builder: (context, stream){
-                                                          if (stream.connectionState == ConnectionState.waiting) {
-                                                            return const Center(child: CircularProgressIndicator());
+                                                    StreamBuilder<
+                                                            QuerySnapshot>(
+                                                        stream: Get.find<
+                                                                ProductController>()
+                                                            .fetchCmt(
+                                                                productId),
+                                                        builder:
+                                                            (context, stream) {
+                                                          if (stream
+                                                                  .connectionState ==
+                                                              ConnectionState
+                                                                  .waiting) {
+                                                            return const Center(
+                                                                child:
+                                                                    CircularProgressIndicator());
                                                           }
                                                           if (stream.hasError) {
-                                                            return Center(child: Text(stream.error.toString()));
+                                                            return Center(
+                                                                child: Text(stream
+                                                                    .error
+                                                                    .toString()));
                                                           }
-                                                          QuerySnapshot querySnapshot = stream.data!;
+                                                          QuerySnapshot
+                                                              querySnapshot =
+                                                              stream.data!;
                                                           return Text(
-                                                            querySnapshot.size.toString(),
+                                                            querySnapshot.size
+                                                                .toString(),
                                                             style: const TextStyle(
-                                                                color:
-                                                                Color(0xFF2D0C57),
+                                                                color: Color(
+                                                                    0xFF2D0C57),
                                                                 fontFamily:
-                                                                'RedHatDisplay',
+                                                                    'RedHatDisplay',
                                                                 fontSize: 22,
                                                                 fontWeight:
-                                                                FontWeight.w700),
+                                                                    FontWeight
+                                                                        .w700),
                                                           );
-                                                        }
-                                                    ),
+                                                        }),
                                                   ],
                                                 ),
                                                 const SizedBox(height: 12),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     ElevatedButton(
                                                         onPressed: () {
                                                           Get.to(() =>
-                                                              CommentScreen(productId));
+                                                              CommentScreen(
+                                                                  productId));
                                                         },
                                                         style: ElevatedButton
                                                             .styleFrom(
@@ -319,17 +336,41 @@ class DetailProduct extends StatelessWidget {
                                       Row(
                                         children: [
                                           GetBuilder<AuthController>(
-                                              builder: (_) => StreamBuilder<DocumentSnapshot>(
-                                                  stream: Get.find<AuthController>().fetchFavProduct(productId),
-                                                  builder: (context, AsyncSnapshot<DocumentSnapshot>snapshot) {
-                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                              builder: (_) => StreamBuilder<
+                                                      DocumentSnapshot>(
+                                                  stream:
+                                                      Get.find<AuthController>()
+                                                          .fetchFavProduct(
+                                                              productId),
+                                                  builder: (context,
+                                                      AsyncSnapshot<
+                                                              DocumentSnapshot>
+                                                          snapshot) {
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
                                                       return Expanded(
                                                         flex: 1,
                                                         child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(side: const BorderSide(color: Color(0xFF9586A8)),
-                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                              primary: Colors.white,
-                                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              side: const BorderSide(
+                                                                  color: Color(
+                                                                      0xFF9586A8)),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8)),
+                                                              primary:
+                                                                  Colors.white,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12),
                                                             ),
                                                             onPressed: () {
                                                               _likeaproduct(
@@ -337,23 +378,40 @@ class DetailProduct extends StatelessWidget {
                                                             },
                                                             child: const Icon(
                                                               Icons.favorite,
-                                                              color: Color(0xFF9586A8),
+                                                              color: Color(
+                                                                  0xFF9586A8),
                                                               size: 24,
                                                             )),
                                                       );
                                                     }
                                                     if (snapshot.hasError) {
-                                                      return Center(child: Text(snapshot.error.toString()));
+                                                      return Center(
+                                                          child: Text(snapshot
+                                                              .error
+                                                              .toString()));
                                                     }
                                                     if (snapshot.data!.exists) {
                                                       return Expanded(
                                                         flex: 1,
                                                         child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(
-                                                              side: const BorderSide(color: Color(0xFF7203FF)),
-                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                              primary: Colors.white,
-                                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              side: const BorderSide(
+                                                                  color: Color(
+                                                                      0xFF7203FF)),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8)),
+                                                              primary:
+                                                                  Colors.white,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12),
                                                             ),
                                                             onPressed: () {
                                                               _unlikeaproduct(
@@ -370,10 +428,24 @@ class DetailProduct extends StatelessWidget {
                                                       return Expanded(
                                                         flex: 1,
                                                         child: ElevatedButton(
-                                                            style: ElevatedButton.styleFrom(side: const BorderSide(color: Color(0xFF9586A8)),
-                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                              primary: Colors.white,
-                                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              side: const BorderSide(
+                                                                  color: Color(
+                                                                      0xFF9586A8)),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8)),
+                                                              primary:
+                                                                  Colors.white,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          12),
                                                             ),
                                                             onPressed: () {
                                                               _likeaproduct(
@@ -381,7 +453,8 @@ class DetailProduct extends StatelessWidget {
                                                             },
                                                             child: const Icon(
                                                               Icons.favorite,
-                                                              color: Color(0xFF9586A8),
+                                                              color: Color(
+                                                                  0xFF9586A8),
                                                               size: 24,
                                                             )),
                                                       );

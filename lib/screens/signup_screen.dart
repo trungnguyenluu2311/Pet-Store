@@ -32,10 +32,11 @@ class SignupScreen extends GetWidget<UtilitiesController> {
     return GetBuilder<UtilitiesController>(
       builder: (controller){
         return Scaffold(
+          extendBodyBehindAppBar: true,
           key: _scaffoldKey,
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Color(0xFF085B6E)),
+            backgroundColor: Colors.transparent,
+            iconTheme: IconThemeData(color: Color(0xFF2D0C57)),
             elevation: 0,
           ),
           body: SizedBox(
@@ -72,7 +73,7 @@ class SignupScreen extends GetWidget<UtilitiesController> {
                             const Text(
                               'Đăng ký',
                               style: TextStyle(
-                                  color: Color(0xFF120E21),
+                                  color: Color(0xFF2D0C57),
                                   fontFamily: 'RedHatDisplay',
                                   fontSize: 28,
                                   fontWeight: FontWeight.w500),
@@ -195,6 +196,7 @@ class SignupScreen extends GetWidget<UtilitiesController> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               child: TextField(
+                                obscureText: true,
                                 controller: _passwordInputCtrl,
                                 decoration: const InputDecoration(
                                   contentPadding:
@@ -233,6 +235,7 @@ class SignupScreen extends GetWidget<UtilitiesController> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               child: TextField(
+                                obscureText: true,
                                 controller: _confirmpasswordInputCtrl,
                                 decoration: const InputDecoration(
                                   contentPadding:
