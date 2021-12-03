@@ -5,6 +5,8 @@ import 'package:flutter_project/screens/signup_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_project/controllers/utilities_controller.dart';
 
+import 'package:flutter_project/screens/forgotpassword_screen.dart';
+
 class LoginScreen extends GetWidget<UtilitiesController> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailInputCtrl = TextEditingController();
@@ -117,14 +119,14 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                             child: StreamBuilder(
                               builder: (context, snapshot) => TextField(
-                                obscureText: true,
                                 controller: _passwordInputCtrl,
+                                obscureText: !controller.showPass,
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 16),
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   contentPadding:
-                                      EdgeInsets.fromLTRB(26, 12, 0, 12),
-                                  labelStyle: TextStyle(
+                                      const EdgeInsets.fromLTRB(26, 12, 0, 12),
+                                  labelStyle: const TextStyle(
                                       color: Color(0xFF9586A8),
                                       fontSize: 16,
                                       fontFamily: 'RedHatDisplay',
@@ -132,18 +134,26 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                                   labelText: 'Mật khẩu',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  prefixIcon: Icon(
+                                  prefixIcon: const Icon(
                                     Icons.lock,
                                     size: 24,
                                     color: Color(0xFF9378FF),
                                   ),
-                                  enabledBorder: OutlineInputBorder(
+                                  suffixIcon: IconButton(
+                                    onPressed: () { controller.showPassword();},
+                                    icon: Icon(
+                                      controller.showPass ? Icons.visibility_off : Icons.visibility,
+                                      size: 24,
+                                      color: Color(0xFF9378FF),
+                                    ),
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Color(0xFFD9D0E3)),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8)),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(
@@ -172,7 +182,23 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                               )),
-                          const SizedBox(height: 38),
+                          Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(()=>ForgotPasswordScreen());
+                                    },
+                                    child: const Text(
+                                      " Quên mật khẩu ?", style: TextStyle(fontSize: 15,color: Color(0xFF085B6E)),
+                                    ),
+                                  )
+                                ],
+                              )
+                          ),
+                          const SizedBox(height: 30),
                           GestureDetector(
                             onTap: () {
                               Get.to(() => SignupScreen());
