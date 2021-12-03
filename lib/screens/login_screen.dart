@@ -42,12 +42,11 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                 const Expanded(
                     child: SizedBox(
                       child: SizedBox(
-                          width: 220,
-                          height: 220,
+                          width: 350,
+                          height: 350,
                           child: Image(
                             image: AssetImage('assets/logo.png'),
-                          )
-                      ),
+                          )),
                     ),
                     flex: 1),
                 Expanded(
@@ -140,9 +139,13 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                                     color: Color(0xFF9378FF),
                                   ),
                                   suffixIcon: IconButton(
-                                    onPressed: () { controller.showPassword();},
+                                    onPressed: () {
+                                      controller.showPassword();
+                                    },
                                     icon: Icon(
-                                      controller.showPass ? Icons.visibility_off : Icons.visibility,
+                                      controller.showPass
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
                                       size: 24,
                                       color: Color(0xFF9378FF),
                                     ),
@@ -183,21 +186,25 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                                         fontWeight: FontWeight.w700)),
                               )),
                           Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 12, 18, 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(()=>ForgotPasswordScreen());
+                                      Get.to(() => ForgotPasswordScreen());
                                     },
                                     child: const Text(
-                                      " Quên mật khẩu ?", style: TextStyle(fontSize: 15,color: Color(0xFF085B6E)),
+                                      " Quên mật khẩu ?",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Color(0xFF9378FF),
+                                          fontFamily: 'RedHatDisplay',
+                                          fontWeight: FontWeight.w700),
                                     ),
                                   )
                                 ],
-                              )
-                          ),
+                              )),
                           const SizedBox(height: 30),
                           GestureDetector(
                             onTap: () {
@@ -216,6 +223,7 @@ class LoginScreen extends GetWidget<UtilitiesController> {
                                     text: " Đăng ký",
                                     style: TextStyle(
                                         color: Color(0xFF9378FF),
+                                        fontFamily: 'RedHatDisplay',
                                         fontWeight: FontWeight.w700),
                                   ),
                                   TextSpan(text: " ngay")
